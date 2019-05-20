@@ -2,6 +2,7 @@
 
 namespace TheProject.Test.Unit
 {
+    [TestFixture]
     public class TddQueueTest
     {
         private const int AnyInRangeValue = 37;
