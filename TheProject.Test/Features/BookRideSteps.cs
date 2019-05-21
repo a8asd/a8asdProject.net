@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.SqlTypes;
-using NUnit.Core;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -9,51 +7,49 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookRideSteps
     {
+        private Booking booking;
         private Customer pat;
         private Driver charlie;
-        private Booking booking;
 
         [Given(@"(.*) is a registered customer")]
-        public void GivenPatIsARegisteredCustomer(string name)
+        public void GivenARegisteredCustomer(string name)
         {
-           pat = new Customer {Name = name};
-        }
-
-        [Given(@"(.*) is a available driver")]
-        public void GivenCharlieIsAAvailableDriver(string name)
-        {
-            charlie = new Driver{Name = name};
-    }
-        
-        [When(@"Pat books a ride")]
-        public void WhenPatBooksARide()
-        {
-           booking = new Booking();
-           booking.Customer = pat;
-           booking.Driver = charlie;
+            pat = new Customer() {Name = name};
         }
         
-        [Then(@"Charlie is Pat's driver")]
-        public void ThenCharlieIsPatSDriver()
+        [Given(@"(.*) is an available driver")]
+        public void GivenAnAvailableDriver(string name)
+        {
+            charlie = new Driver() {Name = name};
+        }
+        
+        [When(@"(.*) books a ride with Charlie")]
+        public void WhenSomeoneBooksARide(string customerName)
+        {
+            booking = new Booking {Customer = pat, Driver = charlie};
+        }
+        
+        [Then(@"Charlie is booked to Pat")]
+        public void ThenCharlieIsBookedToPat()
         {
             Assert.AreEqual(pat, booking.Customer);
             Assert.AreEqual(charlie, booking.Driver);
         }
     }
 
-    public class Booking
-    {
-        public Driver Driver { get; set; }
-        public Customer Customer { get; set; }
-    }
-
     public class Driver
     {
-        public string Name { get; set; }
+        public string Name { get; internal set; }
     }
 
     public class Customer
     {
-        public string Name { get; set; }
+        public string Name { get; internal set; }
+    }
+
+    public class Booking
+    {
+        public Customer Customer { get; internal set; }
+        public Driver Driver { get; internal set; }
     }
 }
