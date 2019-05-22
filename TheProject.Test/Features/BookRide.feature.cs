@@ -127,6 +127,10 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line 22
 testRunner.When("Pat requests offers", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
+testRunner.And("Charlie is available 10 miles away", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+testRunner.And("Kevin is available 25 miles away", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Driver",
@@ -137,7 +141,7 @@ testRunner.When("Pat requests offers", ((string)(null)), ((TechTalk.SpecFlow.Tab
             table2.AddRow(new string[] {
                         "Kevin",
                         "25"});
-#line 23
+#line 25
 testRunner.Then("these are the offers", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();

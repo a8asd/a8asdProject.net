@@ -29,14 +29,6 @@ namespace TheProject.Test.Features
             _luberContext.CreateBooking(customerName, driverName);
         }
 
-
-        //[Then(@"a booking exists between (.*) and (.*)")]
-        //public void ThenABookingExistsBetweenPatAndCharlie(string customerName, string driverName)
-        //{
-        //    Assert.AreEqual(customers[customerName], booking.Customer);
-        //    Assert.AreEqual(drivers[driverName], booking.Driver);
-        //}
-
         [Then(@"these are the bookings")]
         public void ThenTheseAreTheBookings(Table table)
         {
@@ -53,7 +45,34 @@ namespace TheProject.Test.Features
             table.CompareToSet<BookingItem>(bookingItemList);
         }
 
+        [When(@"Pat requests offers")]
+        public void WhenPatRequestsOffers()
+        {
+            var offerItems = _luberContext.offerItems;
+        }
+
+        [When(@"(.*) is available (.*) miles away")]
+        public void WhenCharlieIsAvailableMilesAway(string driverName, int distance)
+        {
+            _luberContext.CreateOffer(driverName, distance);
+        }
+
+        [Then(@"these are the offers")]
+        public void ThenTheseAreTheOffers(Table table)
+        {
+            IEnumerable<OfferItem> offerItemList = new List<OfferItem>();
+
+            table.CompareToSet<OfferItem>(_luberContext.offerItems);
+        }
+
     }
+
+    public class OfferItem
+    {
+        public int Distance { get; internal set; }
+        public string Driver { get; internal set; }
+    }
+
 
     public class BookingItem
     {

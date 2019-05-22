@@ -20,6 +20,8 @@ Scenario: Pat books a ride with Charlie
 
 Scenario: Pat requests offers
 When Pat requests offers
+And Charlie is available 10 miles away
+And Kevin is available 25 miles away
 Then these are the offers
 | Driver  | Distance |
 | Charlie | 10       |
