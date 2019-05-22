@@ -63,6 +63,12 @@
     </Compile>
     <Compile Include="Features\BookRideSteps.cs" />
     <Compile Include="Features\LuberContext.cs" />
+    <Compile Include="Features\PayForRide.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayForRide.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\PayForRideSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\DummyTest.cs" />
   </ItemGroup>
@@ -71,6 +77,10 @@
     <None Include="Features\BookRide.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookRide.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\PayForRide.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PayForRide.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
