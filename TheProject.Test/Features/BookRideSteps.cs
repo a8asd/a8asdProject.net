@@ -9,8 +9,6 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookRideSteps
     {
-        private Customer pat;
-        private Driver charlie;
         private Booking booking;
         private Dictionary<string, Customer> customers = new Dictionary<string, Customer>();
         private Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
