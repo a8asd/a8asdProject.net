@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace TheProject.Test.Features
 {
@@ -13,6 +14,7 @@ namespace TheProject.Test.Features
         private Booking booking;
         private Dictionary<string, Customer> customers = new Dictionary<string, Customer>();
         private Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
+        private IList<Booking> bookings = new List<Booking>();
 
         [Given(@"(.*) is a registered customer")]
         public void GivenPatIsARegisteredCustomer(string name)
@@ -34,14 +36,43 @@ namespace TheProject.Test.Features
                 Customer = customers[customerName],
                 Driver = drivers[driverName]
             };
+
+            bookings.Add(booking);
+
+
         }
+
         
-        [Then(@"a booking exists between (.*) and (.*)")]
-        public void ThenABookingExistsBetweenPatAndCharlie(string customerName, string driverName)
+
+        //[Then(@"a booking exists between (.*) and (.*)")]
+        //public void ThenABookingExistsBetweenPatAndCharlie(string customerName, string driverName)
+        //{
+        //    Assert.AreEqual(customers[customerName], booking.Customer);
+        //    Assert.AreEqual(drivers[driverName], booking.Driver);
+        //}
+
+        [Then(@"these are the bookings")]
+        public void ThenTheseAreTheBookings(Table table)
         {
-            Assert.AreEqual(customers[customerName], booking.Customer);
-            Assert.AreEqual(drivers[driverName], booking.Driver);
+            List<BookingItem> bookingItemList = new List<BookingItem>();
+            foreach (var booking in bookings)
+            {
+
+                bookingItemList.Add(new BookingItem
+                {
+                    DriverName = booking.Driver.Name, CustomerName = booking.Customer.Name
+                });
+            }
+
+            table.CompareToSet<BookingItem>(bookingItemList);
         }
+
+    }
+
+    public class BookingItem
+    {
+        public string DriverName { get; set; }
+        public string CustomerName { get; set; }
     }
 
     internal class Booking
