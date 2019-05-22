@@ -1,4 +1,4 @@
-﻿namespace TheProject.Test.Features
+﻿namespace TheProject
 {
     public class Booking
     {
