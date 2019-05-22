@@ -7,4 +7,6 @@ Scenario: Pat books a ride with Charlie
 	Given Pat is a registered customer
 	And Charlie is an available driver
 	When Pat books a ride with Charlie
-	Then a booking exists between Pat and Charlie
+	Then these bookings exist
+	| Customer | Driver  |
+	| Pat      | Charlie |

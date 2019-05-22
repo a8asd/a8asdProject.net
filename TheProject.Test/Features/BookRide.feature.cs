@@ -83,8 +83,15 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("Charlie is an available driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
  testRunner.When("Pat books a ride with Charlie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Customer",
+                        "Driver"});
+            table1.AddRow(new string[] {
+                        "Pat",
+                        "Charlie"});
 #line 10
- testRunner.Then("a booking exists between Pat and Charlie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("these bookings exist", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

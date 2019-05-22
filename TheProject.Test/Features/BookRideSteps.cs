@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace TheProject.Test.Features
 {
@@ -10,9 +12,9 @@ namespace TheProject.Test.Features
     {
         private Customer customer;
         private Driver driver;
-        private Booking booking;
         private Dictionary<string, Customer> customers = new Dictionary<string, Customer>();
         private Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
+        private List<Booking> bookings = new List<Booking>();
 
         [Given(@"(.*) is a registered customer")]
         public void GivenIsARegisteredCustomer(string name)
@@ -29,19 +31,37 @@ namespace TheProject.Test.Features
         [When(@"(.*) books a ride with (.*)")]
         public void WhenCustomerBooksARideWithDriver(string customerName, string driverName)
         {
-            booking = new Booking
+            Booking booking = new Booking
             {
                 Customer = customers[customerName],
                 Driver = drivers[driverName]
             };
+
+            bookings.Add(booking);
         }
-        
-        [Then(@"a booking exists between (.*) and (.*)")]
-        public void ThenABookingExistsBetweenPatAndCharlie(string customerName, string driverName)
+
+        //[Then(@"a booking exists between (.*) and (.*)")]
+        //public void ThenABookingExistsBetweenPatAndCharlie(string customerName, string driverName)
+        //{
+        //    Assert.AreEqual(customerName, booking.Customer.Name);
+        //    Assert.AreEqual(driverName, booking.Driver.Name);
+        //}
+
+        [Then(@"these bookings exist")]
+        public void ThenTheseBookingsExist(Table table)
         {
-            Assert.AreEqual(customerName, booking.Customer.Name);
-            Assert.AreEqual(driverName, booking.Driver.Name);
+            List<BookingItem> list = bookings.Select(x => new BookingItem
+                {Customer = x.Customer.Name, Driver = x.Driver.Name}).ToList();
+    
+            table.CompareToSet(list);
         }
+
+    }
+
+    internal class BookingItem
+    {
+        public string Customer { get; set; }
+        public string Driver { get; set; }
     }
 
     internal class Booking
