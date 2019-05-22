@@ -6,34 +6,6 @@ using TechTalk.SpecFlow.Assist;
 
 namespace TheProject.Test.Features
 {
-    public class LuberContext
-    {
-        public Dictionary<string, Customer> customers = new Dictionary<string, Customer>();
-        public Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
-        public IList<Booking> bookings = new List<Booking>();
-
-        public void AddCustomer(string name)
-        {
-            customers.Add(name, new Customer {Name = name});
-        }
-
-        public void ExtractDriver(string name)
-        {
-            drivers.Add(name, new Driver {Name = name});
-        }
-
-        public void CreateBooking(string customerName, string driverName)
-        {
-            var booking = new Booking
-            {
-                Customer = customers[customerName],
-                Driver = drivers[driverName]
-            };
-
-            bookings.Add(booking);
-        }
-    }
-
     [Binding]
     public class BookRideSteps
     {
@@ -42,13 +14,13 @@ namespace TheProject.Test.Features
         [Given(@"(.*) is a registered customer")]
         public void GivenPatIsARegisteredCustomer(string name)
         {
-            _luberContext.AddCustomer(name);
+            _luberContext.CreateCustomer(name);
         }
 
         [Given(@"(.*) is an available driver")]
         public void GivenCharlieIsAnAvailableDriver(string name)
         {
-            _luberContext.ExtractDriver(name);
+            _luberContext.CreateDriver(name);
         }
 
         [When(@"(.*) books a ride with (.*)")]
