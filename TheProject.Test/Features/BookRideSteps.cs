@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -10,58 +9,70 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookRideSteps
     {
-        private Customer customer;
-        private Driver driver;
+        private Customer pat;
+        private Driver charlie;
+        private Booking booking;
         private Dictionary<string, Customer> customers = new Dictionary<string, Customer>();
         private Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
-        private List<Booking> bookings = new List<Booking>();
+        private IList<Booking> bookings = new List<Booking>();
 
         [Given(@"(.*) is a registered customer")]
-        public void GivenIsARegisteredCustomer(string name)
+        public void GivenPatIsARegisteredCustomer(string name)
         {
-            customers.Add(name, new Customer {Name = name});
+            customers.Add(name, new Customer { Name = name});
         }
         
         [Given(@"(.*) is an available driver")]
-        public void GivenIsAnAvailableDriver(string name)
+        public void GivenCharlieIsAnAvailableDriver(string name)
         {
-            drivers.Add(name, new Driver { Name = name });
+            drivers.Add(name, new Driver {Name = name});
         }
         
         [When(@"(.*) books a ride with (.*)")]
-        public void WhenCustomerBooksARideWithDriver(string customerName, string driverName)
+        public void WhenPatBooksARideWithCharlie(string customerName, string driverName)
         {
-            Booking booking = new Booking
+            booking = new Booking
             {
                 Customer = customers[customerName],
                 Driver = drivers[driverName]
             };
 
             bookings.Add(booking);
+
+
         }
+
+        
 
         //[Then(@"a booking exists between (.*) and (.*)")]
         //public void ThenABookingExistsBetweenPatAndCharlie(string customerName, string driverName)
         //{
-        //    Assert.AreEqual(customerName, booking.Customer.Name);
-        //    Assert.AreEqual(driverName, booking.Driver.Name);
+        //    Assert.AreEqual(customers[customerName], booking.Customer);
+        //    Assert.AreEqual(drivers[driverName], booking.Driver);
         //}
 
-        [Then(@"these bookings exist")]
-        public void ThenTheseBookingsExist(Table table)
+        [Then(@"these are the bookings")]
+        public void ThenTheseAreTheBookings(Table table)
         {
-            List<BookingItem> list = bookings.Select(x => new BookingItem
-                {Customer = x.Customer.Name, Driver = x.Driver.Name}).ToList();
-    
-            table.CompareToSet(list);
+            List<BookingItem> bookingItemList = new List<BookingItem>();
+            foreach (var booking in bookings)
+            {
+
+                bookingItemList.Add(new BookingItem
+                {
+                    DriverName = booking.Driver.Name, CustomerName = booking.Customer.Name
+                });
+            }
+
+            table.CompareToSet<BookingItem>(bookingItemList);
         }
 
     }
 
-    internal class BookingItem
+    public class BookingItem
     {
-        public string Customer { get; set; }
-        public string Driver { get; set; }
+        public string DriverName { get; set; }
+        public string CustomerName { get; set; }
     }
 
     internal class Booking

@@ -80,18 +80,27 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.Given("Pat is a registered customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.And("Charlie is an available driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Dave is a registered customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
+ testRunner.And("Charlie is an available driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+ testRunner.And("Ben is an available driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
  testRunner.When("Pat books a ride with Charlie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+ testRunner.And("Dave books a ride with Ben", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Customer",
-                        "Driver"});
+                        "DriverName",
+                        "CustomerName"});
             table1.AddRow(new string[] {
-                        "Pat",
-                        "Charlie"});
-#line 10
- testRunner.Then("these bookings exist", ((string)(null)), table1, "Then ");
+                        "Charlie",
+                        "Pat"});
+            table1.AddRow(new string[] {
+                        "Ben",
+                        "Dave"});
+#line 13
+ testRunner.Then("these are the bookings", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
