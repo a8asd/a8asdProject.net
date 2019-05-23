@@ -41,5 +41,10 @@ namespace TheProject.Test.Features
 
             offerItems.Add(offerItem);
         }
+
+        public IList<OfferItem> GetOffers()
+        {
+            return offerItems;
+        }
     }
 }

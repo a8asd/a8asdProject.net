@@ -10,6 +10,7 @@ namespace TheProject.Test.Features
     public class BookRideSteps
     {
         private readonly LuberContext _luberContext = new LuberContext();
+        private IList<OfferItem> offerItems;
 
         [Given(@"(.*) is a registered customer")]
         public void GivenPatIsARegisteredCustomer(string name)
@@ -48,7 +49,7 @@ namespace TheProject.Test.Features
         [When(@"Pat requests offers")]
         public void WhenPatRequestsOffers()
         {
-            var offerItems = _luberContext.offerItems;
+            offerItems = _luberContext.GetOffers();
         }
 
         [When(@"(.*) is available (.*) miles away")]
@@ -62,7 +63,7 @@ namespace TheProject.Test.Features
         {
             IEnumerable<OfferItem> offerItemList = new List<OfferItem>();
 
-            table.CompareToSet<OfferItem>(_luberContext.offerItems);
+            table.CompareToSet<OfferItem>(offerItems);
         }
 
     }
