@@ -83,24 +83,24 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
  testRunner.Given("Charlie is a registered driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.And("Charlies has completed a ride with Pat", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Pat is a registered customr", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
+ testRunner.And("Pat has a booking with Charlie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 9
+ testRunner.And("Pat has completed a booking with Charlie travelling 10 miles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
  testRunner.When("Charlie views the work history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Driver",
                         "Customer",
-                        "Date",
-                        "Distance",
-                        "Rate"});
+                        "Distance"});
             table1.AddRow(new string[] {
                         "Charlie",
                         "Pat",
-                        "01-Jan-2019",
-                        "10",
-                        "2"});
-#line 9
- testRunner.Then("These are the rides", ((string)(null)), table1, "Then ");
+                        "10"});
+#line 11
+ testRunner.Then("These are the rides for Charlie", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

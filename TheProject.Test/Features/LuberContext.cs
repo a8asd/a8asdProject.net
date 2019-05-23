@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TheProject.Test.Features
 {
@@ -30,7 +31,6 @@ namespace TheProject.Test.Features
 
             bookings.Add(booking);
         }
-
         public void CreateOffer(string driverName, int distance)
         {
             var offerItem = new OfferItem()
@@ -40,6 +40,17 @@ namespace TheProject.Test.Features
             };
 
             offerItems.Add(offerItem);
+        }
+
+        public IList<OfferItem> GetOffers()
+        {
+            return offerItems;
+        }
+        public void CompleteBooking(string customerName, string driverName, int distance)
+        {
+            var booking = bookings.Single(a => a.Customer.Name == customerName && a.Driver.Name == driverName);
+            booking.Complete = true;
+            booking.Distance = distance;
         }
     }
 }
