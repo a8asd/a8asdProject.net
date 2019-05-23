@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -64,6 +65,14 @@ namespace TheProject.Test.Features
             IEnumerable<OfferItem> offerItemList = new List<OfferItem>();
 
             table.CompareToSet<OfferItem>(offerItems);
+        }
+
+        [When(@"(.*) accepts the offer from (.*)")]
+        public void WhenPatAcceptsTheOfferFromKevin(string customerName, string driverName)
+        {
+            var offers = _luberContext.GetOffers();
+            var offer = offers.Single(x => x.Driver == driverName);
+            _luberContext.AcceptOffer(customerName, offer);
         }
 
     }

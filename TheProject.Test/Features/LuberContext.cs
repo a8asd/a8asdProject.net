@@ -52,5 +52,10 @@ namespace TheProject.Test.Features
             booking.Complete = true;
             booking.Distance = distance;
         }
+
+        public void AcceptOffer(string customerName, OfferItem offer)
+        {
+            CreateBooking(customerName, offer.Driver);
+        }
     }
 }

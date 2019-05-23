@@ -146,6 +146,35 @@ testRunner.Then("these are the offers", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Pat accepts an offer")]
+        public virtual void PatAcceptsAnOffer()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pat accepts an offer", null, ((string[])(null)));
+#line 30
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line 31
+testRunner.When("Charlie is available 10 miles away", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
+testRunner.And("Kevin is available 25 miles away", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
+testRunner.And("Pat accepts the offer from Kevin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "DriverName",
+                        "CustomerName"});
+            table3.AddRow(new string[] {
+                        "Kevin",
+                        "Pat"});
+#line 34
+testRunner.Then("these are the bookings", ((string)(null)), table3, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
