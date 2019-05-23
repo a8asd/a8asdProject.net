@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TheProject.Test.Features
@@ -8,6 +9,7 @@ namespace TheProject.Test.Features
         private Dictionary<string, Customer> customers = new Dictionary<string, Customer>();
         private Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
         public IList<Booking> bookings = new List<Booking>();
+        public IList<OfferItem> offerItems = new List<OfferItem>();
 
         public void CreateCustomer(string name)
         {
@@ -29,7 +31,21 @@ namespace TheProject.Test.Features
 
             bookings.Add(booking);
         }
+        public void CreateOffer(string driverName, int distance)
+        {
+            var offerItem = new OfferItem()
+            {
+                Driver = drivers[driverName].Name,
+                Distance = distance
+            };
 
+            offerItems.Add(offerItem);
+        }
+
+        public IList<OfferItem> GetOffers()
+        {
+            return offerItems;
+        }
         public void CompleteBooking(string customerName, string driverName, int distance)
         {
             var booking = bookings.Single(a => a.Customer.Name == customerName && a.Driver.Name == driverName);
