@@ -60,20 +60,4 @@ namespace TheProject.Test.Features
         public string DriverName { get; set; }
         public string CustomerName { get; set; }
     }
-
-    public class Booking
-    {
-        internal Customer Customer;
-        internal Driver Driver;
-    }
-
-    public class Driver
-    {
-        public string Name { get; set; }
-    }
-
-    public class Customer
-    {
-        public string Name { get; set; }
-    }
 }

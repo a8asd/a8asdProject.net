@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TheProject.Test.Features
 {
@@ -27,6 +28,13 @@ namespace TheProject.Test.Features
             };
 
             bookings.Add(booking);
+        }
+
+        public void CompleteBooking(string customerName, string driverName, int distance)
+        {
+            var booking = bookings.Single(a => a.Customer.Name == customerName && a.Driver.Name == driverName);
+            booking.Complete = true;
+            booking.Distance = distance;
         }
     }
 }
