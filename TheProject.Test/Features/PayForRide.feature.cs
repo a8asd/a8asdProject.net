@@ -82,34 +82,60 @@ testRunner.When("Pat books a ride with Charlie", ((string)(null)), ((TechTalk.Sp
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Pat pays for a ride")]
-        public virtual void PatPaysForARide()
+        [NUnit.Framework.DescriptionAttribute("Customer pays for a ride with Driver")]
+        public virtual void CustomerPaysForARideWithDriver()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pat pays for a ride", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customer pays for a ride with Driver", null, ((string[])(null)));
 #line 8
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 3
 this.FeatureBackground();
-#line 9
- testRunner.Given("Pat has traveled 10 miles with Charlie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 10
- testRunner.And("the rate is £2.00 per mile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
- testRunner.When("Pat pays for the ride", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Customer",
+                        "Driver",
+                        "Distance"});
+            table1.AddRow(new string[] {
+                        "Tom",
+                        "Sally",
+                        "5.5"});
+            table1.AddRow(new string[] {
+                        "Pat",
+                        "Charlie",
+                        "10.0"});
+#line 9
+ testRunner.Given("These rides have occurred", ((string)(null)), table1, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Distance",
+                        "Rate"});
+            table2.AddRow(new string[] {
+                        "5",
+                        "3"});
+            table2.AddRow(new string[] {
+                        "10",
+                        "2"});
+            table2.AddRow(new string[] {
+                        "20",
+                        "1"});
+#line 13
+ testRunner.And("theses rates exist", ((string)(null)), table2, "And ");
+#line 18
+ testRunner.When("Pat pays for a ride with Charlie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Payee",
                         "Driver",
                         "Distance",
                         "Amount"});
-            table1.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Pat",
                         "Charlie",
                         "10.0",
                         "20.00"});
-#line 12
- testRunner.Then("these invoices are in the system", ((string)(null)), table1, "Then ");
+#line 19
+ testRunner.Then("these invoices are in the system", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
