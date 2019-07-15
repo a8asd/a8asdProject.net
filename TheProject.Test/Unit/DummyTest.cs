@@ -7,7 +7,7 @@ namespace TheProject.Test.Unit
         [Test]
         public void JustToMakeTheBuildPass()
         {
-            Assert.IsTrue(true);
+            Assert.IsTrue(4==2+2);
         }
     }
 }
