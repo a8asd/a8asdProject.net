@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
+using Gherkin.Ast;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -10,83 +9,70 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookRideSteps
     {
-        private readonly LuberContext _luberContext = new LuberContext();
-        private IList<OfferItem> offerItems;
+        private Customer customer;
+        private List<Driver> drivers = new List<Driver>();
 
-        [Given(@"(.*) is a registered customer")]
-        public void GivenPatIsARegisteredCustomer(string name)
+        [Given(@"(.*) is a customer at (.*), (.*)")]
+        public void GivenCharlieIsACustomerAt(string name, double p0, double p1)
         {
-            _luberContext.CreateCustomer(name);
+            customer = new Customer {Name = name,Location = new LuberLocation(p0,p1)};
+        }
+        
+        [Given(@"(.*) is a driver at (.*), (.*)")]
+        public void GivenDaniIsADriverAt(string name, double p0, double p1)
+        {
+            var driver = new Driver {Name = name, TimeToPickup = 20};
+            driver.Location = new LuberLocation(p0,p1);
+            driver.TimeToPickup = (int) driver.Location.Distance(customer.Location);
+            drivers.Add(driver);
+        }
+        
+        [When(@"Charlie asks for the available drivers list")]
+        public void WhenCharlieAsksForTheAvailableDriversList()
+        {
+        }
+        
+        [Then(@"these drivers are displayed")]
+        public void ThenTheseDriversAreDisplayed(Table table)
+        {
+            table.CompareToSet(getDriverLocationsList(customer.Location));
         }
 
-        [Given(@"(.*) is an available driver")]
-        public void GivenCharlieIsAnAvailableDriver(string name)
+        public IEnumerable<Driver> getDriverLocationsList(LuberLocation customerLocation)
         {
-            _luberContext.CreateDriver(name);
+            return drivers;
         }
-
-        [When(@"(.*) books a ride with (.*)")]
-        public void WhenPatBooksARideWithCharlie(string customerName, string driverName)
-        {
-            _luberContext.CreateBooking(customerName, driverName);
-        }
-
-        [Then(@"these are the bookings")]
-        public void ThenTheseAreTheBookings(Table table)
-        {
-            List<BookingItem> bookingItemList = new List<BookingItem>();
-            foreach (var booking in _luberContext.bookings)
-            {
-
-                bookingItemList.Add(new BookingItem
-                {
-                    DriverName = booking.Driver.Name, CustomerName = booking.Customer.Name
-                });
-            }
-
-            table.CompareToSet<BookingItem>(bookingItemList);
-        }
-
-        [When(@"Pat requests offers")]
-        public void WhenPatRequestsOffers()
-        {
-            offerItems = _luberContext.GetOffers();
-        }
-
-        [When(@"(.*) is available (.*) miles away")]
-        public void WhenCharlieIsAvailableMilesAway(string driverName, int distance)
-        {
-            _luberContext.CreateOffer(driverName, distance);
-        }
-
-        [Then(@"these are the offers")]
-        public void ThenTheseAreTheOffers(Table table)
-        {
-            IEnumerable<OfferItem> offerItemList = new List<OfferItem>();
-
-            table.CompareToSet<OfferItem>(offerItems);
-        }
-
-        [When(@"(.*) accepts the offer from (.*)")]
-        public void WhenPatAcceptsTheOfferFromKevin(string customerName, string driverName)
-        {
-            var offers = _luberContext.GetOffers();
-            var offer = offers.Single(x => x.Driver == driverName);
-            _luberContext.AcceptOffer(customerName, offer);
-        }
-
     }
 
-    public class OfferItem
+    public class Driver
     {
-        public int Distance { get; internal set; }
-        public string Driver { get; internal set; }
+        public string Name { get; set; }
+        public int TimeToPickup { get; set; }
+        public LuberLocation Location { get; set; }
     }
 
-
-    public class BookingItem
+    internal class Customer
     {
-        public string DriverName { get; set; }
-        public string CustomerName { get; set; }
+        public LuberLocation Location { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class LuberLocation
+    {
+        private readonly double lat;
+        private readonly double lon;
+
+        public LuberLocation(double lat, double lon)
+        {
+            this.lat = lat;
+            this.lon = lon;
+        }
+
+        public double Distance(LuberLocation to)
+        {
+            var lt = (to.lat - lat)*111;
+            var ln = (to.lon - lon)*64;
+            return Math.Sqrt((lt*lt)+(ln*ln));
+        }
     }
 }
