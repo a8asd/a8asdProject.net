@@ -31,7 +31,8 @@ namespace TheProject.Test.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookRide", "So I can get from A to B\r\nas a customer\r\nI want to be able to book a ride", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookRide", "So I can get from A to B\r\nas a customer\r\nI want to be able to book a ride\r\n\r\navai" +
+                    "lable drivers shows drivers that are less than 30 minutes or less away", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,10 +75,10 @@ namespace TheProject.Test.Features
         public virtual void ViewAvailableDrivers()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("view available drivers", null, ((string[])(null)));
-#line 6
+#line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 7
+#line 8
  testRunner.Given("George is a customer at 51.44931, -2.601203", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -85,16 +86,24 @@ this.ScenarioInitialize(scenarioInfo);
                         "latitude",
                         "longitude"});
             table1.AddRow(new string[] {
+                        "Richard",
+                        "51.476366",
+                        "-2.6290553"});
+            table1.AddRow(new string[] {
+                        "Sam",
+                        "51.8596987",
+                        "-2.1842129"});
+            table1.AddRow(new string[] {
                         "Craig",
                         "51.4590176",
                         "-2.5926543"});
             table1.AddRow(new string[] {
-                        "Richard",
-                        "51.476366",
-                        "-2.6290553"});
-#line 8
- testRunner.And("these drivers", ((string)(null)), table1, "And ");
-#line 12
+                        "Seb",
+                        "51.5576583",
+                        "-1.8115952"});
+#line 9
+ testRunner.And("these drivers are available", ((string)(null)), table1, "And ");
+#line 15
  testRunner.When("Charlie asks for the available drivers list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -106,7 +115,7 @@ this.ScenarioInitialize(scenarioInfo);
             table2.AddRow(new string[] {
                         "Richard",
                         "3m 29s"});
-#line 13
+#line 16
  testRunner.Then("these drivers are displayed", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();

@@ -17,7 +17,7 @@ namespace TheProject.Test.Features
             customer = new Customer { Name = name, Location = new LuberLocation(latitude, longitude) };
         }
 
-        [Given(@"these drivers")]
+        [Given(@"these drivers are available")]
         public void GivenTheseDrivers(Table table)
         {
             var inputs = table.CreateSet<DriverInput>();
@@ -48,12 +48,15 @@ namespace TheProject.Test.Features
             IList<DriverLocation> driverLocations = new List<DriverLocation>();
             foreach (var driver in drivers)
             {
-                driverLocations.Add(
-                    new DriverLocation
-                    {
-                        Name = driver.Name,
-                        TimeToPickup = driver.TimeToPickup(customer.Location)
-                    });
+                if (driver.Location.Distance(customer.Location) <= 30)
+                {
+                    driverLocations.Add(
+                        new DriverLocation
+                        {
+                            Name = driver.Name,
+                            TimeToPickup = driver.TimeToPickup(customer.Location)
+                        });
+                }
             }
             return driverLocations;
         }
