@@ -81,6 +81,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Features\BookRide.feature" />
+    <None Include="Features\SpecFlowFeature1.feature" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

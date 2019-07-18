@@ -9,7 +9,24 @@ namespace TheProject.Test.Features
     {
         private Customer customer;
         private IEnumerable<DriverLocation> availableDrivers;
-        private readonly LuberApi luberApi = new LuberApi();
+        private readonly LuberApi luberApi;
+
+        [BeforeFeature]
+        public static void BeforeFeature()
+        {
+
+        }
+
+        [BeforeScenario]
+        public static void BeforeScenario()
+        {
+
+        }
+
+        public BookRideSteps(LuberApi luberApi)
+        {
+            this.luberApi = luberApi;
+        }
 
         [Given(@"(.*) is a customer at (.*), (.*)")]
         public void GivenCharlieIsACustomerAt(string name, double latitude, double longitude)

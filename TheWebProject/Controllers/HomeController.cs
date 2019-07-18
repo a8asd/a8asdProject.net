@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TheProject;
 
 namespace TheWebProject.Controllers
 {
@@ -13,18 +14,19 @@ namespace TheWebProject.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult AddDriver()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Add a new driver";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public List<DriverLocation> ListDrivers()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.Message = "List drivers";
+            List<DriverLocation> driverList = new List<DriverLocation>();
+            return driverList;
         }
     }
 }

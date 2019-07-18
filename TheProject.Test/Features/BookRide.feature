@@ -4,6 +4,7 @@ as a customer
 I want to be able to book a ride
 available drivers shows drivers that are less than 30 minutes or less away
 
+
 Background:
 	Given George is a customer at 51.44931, -2.601203
 	And these drivers are available

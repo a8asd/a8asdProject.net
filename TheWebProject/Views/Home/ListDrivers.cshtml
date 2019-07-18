@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "ListDrivers";
+}
+@Model = DriverList;
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<ul>
+    @foreach (var driver in Model)
+    {
+        <li>@driver.</li>
+    }
+</ul>
