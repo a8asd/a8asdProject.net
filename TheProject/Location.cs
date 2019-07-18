@@ -2,18 +2,18 @@
 
 namespace TheProject
 {
-    public class LuberLocation
+    public class Location
     {
         private readonly double latitude;
         private readonly double longitude;
 
-        public LuberLocation(double latitude, double longitude)
+        public Location(double latitude, double longitude)
         {
             this.latitude = latitude;
             this.longitude = longitude;
         }
 
-        public double Distance(LuberLocation to)
+        public double Distance(Location to)
         {
             var lt = (to.latitude - latitude)*111;
             var ln = (to.longitude - longitude)*64;

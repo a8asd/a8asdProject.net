@@ -53,7 +53,7 @@
     <Compile Include="Driver.cs" />
     <Compile Include="DriverLocation.cs" />
     <Compile Include="LuberApi.cs" />
-    <Compile Include="LuberLocation.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

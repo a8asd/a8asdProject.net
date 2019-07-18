@@ -14,7 +14,7 @@ namespace TheProject.Test.Features
         [Given(@"(.*) is a customer at (.*), (.*)")]
         public void GivenCharlieIsACustomerAt(string name, double latitude, double longitude)
         {
-            customer = new Customer { Name = name, Location = new LuberLocation(latitude, longitude) };
+            customer = new Customer { Name = name, Location = new Location(latitude, longitude) };
         }
 
         [Given(@"these drivers are available")]
@@ -26,7 +26,7 @@ namespace TheProject.Test.Features
                 luberApi.AddDriver(new Driver
                 {
                     Name = input.Name,
-                    Location = new LuberLocation(input.Latitude, input.Longitude)
+                    Location = new Location(input.Latitude, input.Longitude)
                 });
             }
         }
@@ -34,7 +34,7 @@ namespace TheProject.Test.Features
         [When(@"Charlie asks for the available drivers list")]
         public void WhenCharlieAsksForTheAvailableDriversList()
         {
-            availableDrivers = luberApi.getDriverLocationsList(customer.Location);
+            availableDrivers = luberApi.GetDriverLocationsList(customer.Location);
         }
 
         [Then(@"these drivers are displayed")]

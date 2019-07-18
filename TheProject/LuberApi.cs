@@ -11,7 +11,7 @@ namespace TheProject
             drivers.Add(driver);
         }
 
-        public IList<DriverLocation> getDriverLocationsList(LuberLocation customerLocation)
+        public IList<DriverLocation> GetDriverLocationsList(Location customerLocation)
         {
             IList<DriverLocation> driverLocations = new List<DriverLocation>();
             foreach (var driver in drivers)
