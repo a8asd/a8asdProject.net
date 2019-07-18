@@ -8,8 +8,8 @@ namespace TheProject.Test.Features
     public class BookRideSteps
     {
         private Customer customer;
-        private readonly List<Driver> drivers = new List<Driver>();
         private IEnumerable<DriverLocation> availableDrivers;
+        private readonly LuberApi luberApi = new LuberApi();
 
         [Given(@"(.*) is a customer at (.*), (.*)")]
         public void GivenCharlieIsACustomerAt(string name, double latitude, double longitude)
@@ -23,10 +23,10 @@ namespace TheProject.Test.Features
             var inputs = table.CreateSet<DriverInput>();
             foreach (var input in inputs)
             {
-                drivers.Add(new Driver
+                luberApi.AddDriver(new Driver
                 {
                     Name = input.Name,
-                    Location = new LuberLocation(input.Latitude,input.Longitude)
+                    Location = new LuberLocation(input.Latitude, input.Longitude)
                 });
             }
         }
@@ -34,31 +34,13 @@ namespace TheProject.Test.Features
         [When(@"Charlie asks for the available drivers list")]
         public void WhenCharlieAsksForTheAvailableDriversList()
         {
-            availableDrivers = getDriverLocationsList(customer.Location);
+            availableDrivers = luberApi.getDriverLocationsList(customer.Location);
         }
 
         [Then(@"these drivers are displayed")]
         public void ThenTheseDriversAreDisplayed(Table table)
         {
             table.CompareToSet(availableDrivers);
-        }
-
-        public IList<DriverLocation> getDriverLocationsList(LuberLocation customerLocation)
-        {
-            IList<DriverLocation> driverLocations = new List<DriverLocation>();
-            foreach (var driver in drivers)
-            {
-                if (driver.Location.Distance(customer.Location) <= 30)
-                {
-                    driverLocations.Add(
-                        new DriverLocation
-                        {
-                            Name = driver.Name,
-                            TimeToPickup = driver.TimeToPickup(customer.Location)
-                        });
-                }
-            }
-            return driverLocations;
         }
     }
 

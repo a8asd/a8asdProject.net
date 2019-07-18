@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using TheProject.Test.Features;
 
 namespace TheProject.Test.Unit
 {
@@ -8,8 +7,8 @@ namespace TheProject.Test.Unit
         [Test]
         public void DistanceBetweenSameLocationIsZero()
         {
-            LuberLocation from = new LuberLocation(23,24);
-            LuberLocation to = new LuberLocation(23,24);
+            var from = new LuberLocation(23.0,24.0);
+            var to = new LuberLocation(23.0,24.0);
             Assert.AreEqual(0,from.Distance(to));
         }
 

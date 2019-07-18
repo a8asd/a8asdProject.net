@@ -31,8 +31,8 @@ namespace TheProject.Test.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookRide", "So I can get from A to B\r\nas a customer\r\nI want to be able to book a ride\r\n\r\navai" +
-                    "lable drivers shows drivers that are less than 30 minutes or less away", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookRide", "So I can get from A to B\r\nas a customer\r\nI want to be able to book a ride\r\navaila" +
+                    "ble drivers shows drivers that are less than 30 minutes or less away", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,14 +70,9 @@ namespace TheProject.Test.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("view available drivers")]
-        public virtual void ViewAvailableDrivers()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("view available drivers", null, ((string[])(null)));
 #line 7
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
 #line 8
  testRunner.Given("George is a customer at 51.44931, -2.601203", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
@@ -94,6 +89,10 @@ this.ScenarioInitialize(scenarioInfo);
                         "51.8596987",
                         "-2.1842129"});
             table1.AddRow(new string[] {
+                        "David",
+                        "51.8596987",
+                        "-2.1842129"});
+            table1.AddRow(new string[] {
                         "Craig",
                         "51.4590176",
                         "-2.5926543"});
@@ -103,7 +102,20 @@ this.ScenarioInitialize(scenarioInfo);
                         "-1.8115952"});
 #line 9
  testRunner.And("these drivers are available", ((string)(null)), table1, "And ");
-#line 15
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("view available drivers")]
+        public virtual void ViewAvailableDrivers()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("view available drivers", null, ((string[])(null)));
+#line 17
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line 18
  testRunner.When("Charlie asks for the available drivers list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -115,7 +127,7 @@ this.ScenarioInitialize(scenarioInfo);
             table2.AddRow(new string[] {
                         "Richard",
                         "3m 29s"});
-#line 16
+#line 19
  testRunner.Then("these drivers are displayed", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
