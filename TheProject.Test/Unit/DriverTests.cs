@@ -5,11 +5,6 @@ namespace TheProject.Test.Unit
     public class DriverTests
     {
         [Test]
-        public void DummyTest()
-        {
-            Assert.Fail();
-        }
-        [Test]
         public void TimeToPickupFromHereIsZero()
         {
             var location = new Location(53, 0);
