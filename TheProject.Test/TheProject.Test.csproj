@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Features\BookRideSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unit\DriverTests.cs" />
     <Compile Include="Unit\LocationTest.cs" />
     <Compile Include="Unit\QueueTest.cs" />
   </ItemGroup>

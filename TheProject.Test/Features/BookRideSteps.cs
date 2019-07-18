@@ -9,37 +9,60 @@ namespace TheProject.Test.Features
     {
         private Customer customer;
         private readonly List<Driver> drivers = new List<Driver>();
-        private IEnumerable<Driver> availableDrivers;
+        private IEnumerable<DriverLocation> availableDrivers;
 
         [Given(@"(.*) is a customer at (.*), (.*)")]
         public void GivenCharlieIsACustomerAt(string name, double latitude, double longitude)
         {
-            customer = new Customer {Name = name,Location = new LuberLocation(latitude,longitude)};
+            customer = new Customer { Name = name, Location = new LuberLocation(latitude, longitude) };
         }
-        
-        [Given(@"(.*) is a driver at (.*), (.*)")]
-        public void GivenDaniIsADriverAt(string name, double latitude, double longitude)
+
+        [Given(@"these drivers")]
+        public void GivenTheseDrivers(Table table)
         {
-            var driver = new Driver {Name = name, TimeToPickup = 20, Location = new LuberLocation(latitude, longitude)};
-            driver.TimeToPickup = (int) driver.Location.Distance(customer.Location);
-            drivers.Add(driver);
+            var inputs = table.CreateSet<DriverInput>();
+            foreach (var input in inputs)
+            {
+                drivers.Add(new Driver
+                {
+                    Name = input.Name,
+                    Location = new LuberLocation(input.Latitude,input.Longitude)
+                });
+            }
         }
-        
+
         [When(@"Charlie asks for the available drivers list")]
         public void WhenCharlieAsksForTheAvailableDriversList()
         {
             availableDrivers = getDriverLocationsList(customer.Location);
         }
-        
+
         [Then(@"these drivers are displayed")]
         public void ThenTheseDriversAreDisplayed(Table table)
         {
             table.CompareToSet(availableDrivers);
         }
 
-        public IEnumerable<Driver> getDriverLocationsList(LuberLocation customerLocation)
+        public IList<DriverLocation> getDriverLocationsList(LuberLocation customerLocation)
         {
-            return drivers;
+            IList<DriverLocation> driverLocations = new List<DriverLocation>();
+            foreach (var driver in drivers)
+            {
+                driverLocations.Add(
+                    new DriverLocation
+                    {
+                        Name = driver.Name,
+                        TimeToPickup = driver.TimeToPickup(customer.Location)
+                    });
+            }
+            return driverLocations;
         }
+    }
+
+    public class DriverInput
+    {
+        public string Name { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

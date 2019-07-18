@@ -79,24 +79,35 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 7
  testRunner.Given("George is a customer at 51.44931, -2.601203", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.And("Craig is a driver at 51.4590176, -2.5926543", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 9
- testRunner.And("Richard is a driver at 51.476366, -2.6290553", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
- testRunner.When("Charlie asks for the available drivers list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name",
-                        "time to pickup"});
+                        "name",
+                        "latitude",
+                        "longitude"});
             table1.AddRow(new string[] {
                         "Craig",
-                        "1"});
+                        "51.4590176",
+                        "-2.5926543"});
             table1.AddRow(new string[] {
                         "Richard",
-                        "3"});
-#line 11
- testRunner.Then("these drivers are displayed", ((string)(null)), table1, "Then ");
+                        "51.476366",
+                        "-2.6290553"});
+#line 8
+ testRunner.And("these drivers", ((string)(null)), table1, "And ");
+#line 12
+ testRunner.When("Charlie asks for the available drivers list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "time to pickup"});
+            table2.AddRow(new string[] {
+                        "Craig",
+                        "1m 12s"});
+            table2.AddRow(new string[] {
+                        "Richard",
+                        "3m 29s"});
+#line 13
+ testRunner.Then("these drivers are displayed", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Customer.cs" />
     <Compile Include="Driver.cs" />
+    <Compile Include="DriverLocation.cs" />
     <Compile Include="LuberLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
