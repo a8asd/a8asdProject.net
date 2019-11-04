@@ -31,8 +31,8 @@ namespace TheProject.Test.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookRide", "So I can get from A to B\r\nas a customer\r\nI want to be able to book a ride\r\navaila" +
-                    "ble drivers shows drivers that are less than 30 minutes or less away", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookRide", "So I can get from A to B\r\nas a customer\r\nI want to be able to book a ride\r\n\r\nNote" +
+                    ": available drivers shows drivers that are 30 minutes or less away", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,8 +72,8 @@ namespace TheProject.Test.Features
         
         public virtual void FeatureBackground()
         {
-#line 8
 #line 9
+#line 10
  testRunner.Given("George is a customer at 51.44931, -2.601203", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -100,8 +100,8 @@ namespace TheProject.Test.Features
                         "Seb",
                         "51.5576583",
                         "-1.8115952"});
-#line 10
- testRunner.And("these drivers are available", ((string)(null)), table1, "And ");
+#line 11
+ testRunner.And("these drivers are online", ((string)(null)), table1, "And ");
 #line hidden
         }
         
@@ -110,12 +110,12 @@ namespace TheProject.Test.Features
         public virtual void ViewAvailableDrivers()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("view available drivers", null, ((string[])(null)));
-#line 18
+#line 19
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 8
+#line 9
 this.FeatureBackground();
-#line 19
+#line 20
  testRunner.When("Charlie asks for the available drivers list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -127,7 +127,7 @@ this.FeatureBackground();
             table2.AddRow(new string[] {
                         "Richard",
                         "3m 29s"});
-#line 20
+#line 21
  testRunner.Then("these drivers are displayed", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
