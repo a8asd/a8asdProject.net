@@ -6,15 +6,18 @@
 
 <form method="post">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-1">
             <label>Name</label>
             <label>Latitude</label>
             <label>Longitude</label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
             <input name="name" type="text" />
-            <input name="latitude" type="text" />
-            <input name="longitude" type="text" />
+            <input name="latitude" type="number" value="51.4839379" />
+            <input name="longitude" type="number" value="-2.492674" />
         </div>
+    </div>
+    <div class="row">
+        <input type="submit" class="btn-success"/>
     </div>
 </form>

@@ -49,11 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Customer.cs" />
-    <Compile Include="Driver.cs" />
-    <Compile Include="DriverLocation.cs" />
-    <Compile Include="LuberApi.cs" />
-    <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
