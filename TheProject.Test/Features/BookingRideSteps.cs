@@ -13,19 +13,19 @@ namespace TheProject.Test.Features
         private List<Member> memberList = new List<Member>();
 
         [Given(@"(.*) is a member at (.*),(.*)")]
-        public void GivenRileyIsAMember(string memberName,Decimal p0, Decimal p1)
+        public void GivenRileyIsAMember(string memberName,Decimal latitude, Decimal longitude)
         {
             memberList.Add(new Member{Name = memberName});
         } 
         
         [Given(@"(.*) is a driver at (.*),(.*)")]
-        public void GivenDannyIsADriverAt(string driverName,Decimal p0, Decimal p1)
+        public void GivenDannyIsADriverAt(string driverName,Decimal latitude, Decimal longitude)
         {
             driverList.Add(new Driver {Name = driverName});
         }
         
         [When(@"(.*) requests a ride from (.*),(.*)")]
-        public void WhenRileyRequestsARideFrom(string memberName,Decimal p0, Decimal p1)
+        public void WhenRileyRequestsARideFrom(string memberName,Decimal latitude, Decimal longitude)
         {
             if (memberList.Find(x=>x.Name==memberName)!=null)
             {
