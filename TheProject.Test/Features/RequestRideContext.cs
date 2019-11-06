@@ -39,5 +39,13 @@ namespace TheProject.Test.Features
         {
             return memberList.Find(x => x.Name == memberName);
         }
+
+        public void AddRiders(List<Rider> riders)
+        {
+            foreach (var rider in riders)
+            {
+                AddMember(rider.Name, rider.Location.Latitude, rider.Location.Longitude);                
+            }
+        }
     }
 }

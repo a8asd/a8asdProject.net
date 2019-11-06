@@ -11,17 +11,21 @@ namespace TheProject.Test.Features
         private List<Driver> availableDrivers;
         private readonly RequestRideContext requestRideContext = new RequestRideContext();
 
-        [Given(@"(.*) is a member at (.*),(.*)")]
-        public void GivenRileyIsAMember(string memberName, double latitude, double longitude)
+        [Given(@"the following riders")]
+        public void GivenTheFollowingRiders(Table table)
         {
-            requestRideContext.AddMember(memberName, latitude, longitude);
+            List<Rider> riderList = new List<Rider>();
+            foreach (var rider in table.CreateSet<RiderModel>())
+            {
+                riderList.Add(new Rider() { Name = rider.Name, Location = new Location(rider.Latitude, rider.Longitude) });
+            }
+            requestRideContext.AddRiders(riderList);
         }
 
         [Given(@"(.*) is a driver at (.*),(.*)")]
         public void GivenDannyIsADriverAt(string driverName, double latitude, double longitude)
         {
             requestRideContext.AddDriver(driverName, latitude, longitude);
-
         }
 
         [When(@"(.*) requests a ride")]
@@ -36,5 +40,12 @@ namespace TheProject.Test.Features
         {
             table.CompareToSet(availableDrivers);
         }
+    }
+
+    public class RiderModel
+    {
+        public string Name { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

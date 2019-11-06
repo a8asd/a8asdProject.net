@@ -5,7 +5,9 @@
 	rule: rider only sees up to the 5 closest drivers
 
 Scenario: Riley sees the ride option list
-	Given Riley is a member at 51.6731459,-0.9283008
+	Given the following riders
+	| name  | latitude   | longitude  |
+	| Riley | 51.6731459 | -0.9283008 |
 	And Danny is a driver at 51.6782551,-0.9330204	
 	And Fred is a driver at 51.6782551,-0.9330204	
 	And Frank is a driver at 51.6782551,-0.9330204	
