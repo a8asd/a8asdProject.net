@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TheProject.Models;
@@ -26,11 +28,24 @@ namespace TheProject.Test.Features
         }
         
         [When(@"(.*) requests a ride from (.*),(.*)")]
-        public void WhenRileyRequestsARideFrom(string memberName,Decimal latitude, Decimal longitude)
+        public void WhenRileyRequestsARideFrom(string memberName,double latitude, double longitude)
         {
+            
             if (memberList.Find(x=>x.Name==memberName)!=null)
             {
-                availableDrivers = driverList;
+                Location memberLocation = new Location(latitude, longitude);
+
+                //availableDrivers = driverList.FindAll(d => d.Location.DistanceFrom(memberLocation) <= 16.0);
+                var sortedDriverlist = (from driver in driverList
+                        where driver.Location.DistanceFrom(memberLocation) <= 16.0
+                        select (distance: driver.Location.DistanceFrom(memberLocation), driver: driver))
+                    .OrderBy(x => x.distance);
+                    if(sortedDriverlist.Count() > 5)             
+                        availableDrivers = sortedDriverlist.Select(x => x.driver).ToList().GetRange(0,5);
+                    else
+                    {
+                        availableDrivers = sortedDriverlist.Select(x => x.driver).ToList();
+                    }
             }
         }
         

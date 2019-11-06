@@ -83,13 +83,27 @@ this.ScenarioInitialize(scenarioInfo);
 #line 9
  testRunner.And("Danny is a driver at 51.6782551,-0.9330204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
+ testRunner.And("Fred is a driver at 51.6782551,-0.9330204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
+ testRunner.And("Frank is a driver at 51.6782551,-0.9330204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+ testRunner.And("Steve is a driver at 51.6782551,-0.9330204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.And("Jamie is a driver at 51.6782551,-1.9330204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
  testRunner.When("Riley requests a ride from 51.6731459,-0.9283008", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
             table1.AddRow(new string[] {
                         "Danny"});
-#line 11
+            table1.AddRow(new string[] {
+                        "Fred"});
+            table1.AddRow(new string[] {
+                        "Frank"});
+            table1.AddRow(new string[] {
+                        "Steve"});
+#line 15
  testRunner.Then("Riley sees these drivers", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
