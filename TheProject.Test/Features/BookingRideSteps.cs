@@ -49,6 +49,73 @@ namespace TheProject.Test.Features
         {
             table.CompareToSet(availableDrivers);
         }
+
+        [Given(@"these rides are on offer for (.*)")]
+        public void GivenTheseRidesAreOnOfferForDanny(string driverName, Table table)
+        {
+            var availableRides = table.CreateSet<RideModel>();
+            foreach (var ride in availableRides)
+            {
+                AddRide(driverName, ride);
+            }
+          
+        }
+
+        public void AddRide(string driverName, RideModel ride)
+        {
+            List<Ride> rides = new List<Ride>();
+            rides.Add(new Ride
+            {
+                Distance = ride.Distance,
+                RiderName = ride.RiderName,
+                DropoffLocation = new Location(ride.Latitude, ride.Longitude),
+                DriverName = driverName,
+                Status = "Pending"
+            });
+        }
+
+
+        [When(@"Danny accepts Riley's ride")]
+        public void WhenDannyAcceptsRileySRide()
+        {
+            
+        }
+
+        [Then(@"Riley's ride is accepted")]
+        public void ThenRileySRideIsAccepted()
+        {
+            
+        }
+
+        [Then(@"Danny is busy")]
+        public void ThenDannyIsBusy()
+        {
+            
+        }
+
+        [Then(@"these rides are on offer")]
+        public void ThenTheseRidesAreOnOffer(Table table)
+        {
+            
+        }
+
+    }
+
+    public class RideModel
+    {
+        public double Distance { get; set; }
+        public string RiderName { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    }
+
+    public class Ride
+    {
+        public double Distance { get; set; }
+        public string RiderName { get; set; }
+        public Location DropoffLocation { get; set; }
+        public string DriverName { get; set; }
+        public string Status { get; set; }
     }
 
     public class DriverRow

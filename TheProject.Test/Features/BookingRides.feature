@@ -25,14 +25,14 @@ Scenario: Riley sees the ride option list
 	| Frank |
 	| Steve |
 
-#Scenario: Danny accepts a ride
-#	And these rides are on offer
-#	| distance | riderName | lat | long |
-#	| 10       | Riley     | 0   | 0    |
-#	| 16       | Rory      | 1   | 1    |
-#	When Danny accepts Riley's ride
-#	Then Riley's ride is accepted
-#	And Danny is busy
-#	And these rides are on offer
-#	| distance | riderName | lat | long |
-#	| 16       | Rory      | 1   | 1    |
+Scenario: Danny accepts a ride
+	Given these rides are on offer for Danny
+	| distance | riderName | lat | long |
+	| 10       | Riley     | 0   | 0    |
+	| 16       | Rory      | 1   | 1    |
+	When Danny accepts Riley's ride
+	Then Riley's ride is accepted
+	And Danny is busy
+	And these rides are on offer
+	| distance | riderName | lat | long |
+	| 16       | Rory      | 1   | 1    |
