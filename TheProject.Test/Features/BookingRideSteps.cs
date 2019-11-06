@@ -1,20 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using NUnit.Framework;
+using System.Collections.Generic;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
     [Binding]
-    public class BookingRidesSteps
+    public class BookingRidesSteps 
     {
-        private List<Driver> _availableDrivers;
-        private readonly RequestRideContext _requestRideContext;
+        private readonly RequestRideContext context;
 
-        public BookingRidesSteps(RequestRideContext requestRideContext)
+        public BookingRidesSteps(RequestRideContext context)
         {
-            _requestRideContext = requestRideContext;
+            this.context = context;
         }
 
         [Given(@"the following riders")]
@@ -22,100 +20,84 @@ namespace TheProject.Test.Features
         {
             foreach (var rider in table.CreateSet<RiderModel>())
             {
-                _requestRideContext.AddRider(rider.Name, rider.Latitude, rider.Longitude);
+                context.AddRider(rider.Name, rider.Latitude, rider.Longitude);
             }
         }
 
         [Given("we have these drivers")]
         public void WeHaveTheseDrivers(Table table)
         {
-            foreach (var driver in table.CreateSet<DriverRow>())
+            foreach (var driver in table.CreateSet<DriverModel>())
             {
-                _requestRideContext.AddDriver(driver.Name, driver.Lat, driver.Lng);
+                context.AddDriver(driver.Name, driver.Lat, driver.Lng);
             }
         }
 
         [Given(@"(.*) is a driver at (.*),(.*)")]
         public void GivenDannyIsADriverAt(string driverName, double latitude, double longitude)
         {
-            _requestRideContext.AddDriver(driverName, latitude, longitude);
+            context.AddDriver(driverName, latitude, longitude);
         }
 
-        [When(@"(.*) requests a ride")]
-        public void WhenRileyRequestsARideFrom(string memberName)
+        [When(@"(.*) requests a ride to (.*),(.*)")]
+        public void WhenRiderRequestsRideTo(string riderName, double latitude,double longitude)
         {
-            var member = _requestRideContext.Find(memberName);
-            _availableDrivers = _requestRideContext.GetAvailableDrivers(member);
+            context.RequestRide(riderName,latitude,longitude);
         }
 
-        [Then(@"Riley sees these drivers")]
-        public void ThenRileySeesTheseDrivers(Table table)
+        [Then(@"(.*) sees these drivers")]
+        public void ThenRiderSeesTheseDrivers(string riderName,Table table)
         {
-            table.CompareToSet(_availableDrivers);
-        }
-
-        [Given(@"these rides are on offer for (.*)")]
-        public void GivenTheseRidesAreOnOfferForDanny(string driverName, Table table)
-        {
-            var availableRides = table.CreateSet<RideModel>();
-            foreach (var ride in availableRides)
-            {
-                _requestRideContext.AddRide(driverName, ride);
-            }
+            table.CompareToSet(context.GetAvailableDrivers(riderName));
         }
 
         [When(@"(.*) accepts (.*)'s ride")]
         public void WhenDannyAcceptsRileySRide(string driverName, string riderName)
         {
-            var rides = _requestRideContext.GetRides(driverName);
-            var ride = rides.FirstOrDefault(r => r.RiderName == riderName);
-            if (ride != null)
-                ride.Accept();
+            context.DriverAcceptsRequest(driverName, riderName);
         }
 
-        [Then(@"Riley's ride is accepted")]
-        public void ThenRileySRideIsAccepted()
+        [Then(@"(.*)'s ride is accepted")]
+        public void ThenRileySRideIsAccepted(string riderName)
         {
-
+            Assert.IsTrue(context.GetRequest(riderName).Accepted);
         }
 
-        [Then(@"Danny is busy")]
-        public void ThenDannyIsBusy()
+        [Then(@"(.*) is busy")]
+        public void ThenDriverIsBusy(string driverName)
         {
-
+            Assert.IsFalse(context.GetDriver(driverName).IsAvailable);
         }
 
-        [Then(@"these rides are on offer")]
+        [Then(@"these requests are available")]
         public void ThenTheseRidesAreOnOffer(Table table)
         {
-
+            List<RequestModel> requests = new List<RequestModel>();
+            foreach (var request in context.GetAvailableRequests())
+            {
+                requests.Add(new RequestModel
+                {
+                    RiderName = request.RiderName,
+                    StartLatitude = request.Start.Latitude,
+                    StartLongitude = request.Start.Latitude,
+                    Distance = request.Destination.DistanceFrom(request.Start)
+                });
+            }
+            table.CompareToSet(requests);
         }
 
     }
 
-    public class RideModel
+    public class RequestModel
     {
-        public double Distance { get; set; }
         public string RiderName { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double StartLatitude { get; set; }
+        public double StartLongitude { get; set; }
+        public double Distance { get; set; }
     }
 
-    public class Ride
-    {
-        public double Distance { get; set; }
-        public string RiderName { get; set; }
-        public Location DropoffLocation { get; set; }
-        public string DriverName { get; set; }
-        public string Status { get; set; }
 
-        public void Accept()
-        {
-            Status = "Accepted";
-        }
-    }
-
-    public class DriverRow
+    public class DriverModel
     {
         public string Name { get; set; }
         public double Lat { get; set; }

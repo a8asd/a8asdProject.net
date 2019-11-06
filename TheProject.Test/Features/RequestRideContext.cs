@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TheProject.Models;
 
@@ -7,31 +8,40 @@ namespace TheProject.Test.Features
     public class RequestRideContext
     {
         private readonly List<Driver> driverList = new List<Driver>();
-        private readonly List<Rider> memberList = new List<Rider>();
-        private List<Ride> rides = new List<Ride>();
+        private readonly List<Rider> riderList = new List<Rider>();
+        private List<RideOption> rides = new List<RideOption>();
+        private List<RideRequest> requests = new List<RideRequest>();
 
         public void AddRider(string memberName, double latitude, double longitude)
         {
-            memberList.Add(new Rider
+            riderList.Add(new Rider
             {
                 Name = memberName, 
                 Location = new Location(latitude, longitude)
             });
         }
 
-        public List<RideOption> GetAvailableDrivers(Rider rider)
+        public List<RideOption> GetAvailableDrivers(string riderName)
         {
-            List<RideOption> rideOptions = null;
-            if (rider != null)
+            var rideOptions = new List<RideOption>();
+            var request = requests.Find(x => x.RiderName == riderName);
+            if (request == null)
             {
-                var sortedDriverList = (from driver in driverList
-                                        where driver.Location.DistanceFrom(rider.Location) <= 16.0
-                                        select (distance: driver.Location.DistanceFrom(rider.Location), driver))
-                    .OrderBy(x => x.distance);
-                rideOptions = sortedDriverList.Select(x => new RideOption(x.driver, (decimal)12.00)).ToList();
-                if (rideOptions.Count() > 5)
-                    rideOptions = rideOptions.GetRange(0, 5);
+                return rideOptions;
             }
+
+            var available = driverList.FindAll(x => x.Location.DistanceFrom(request.Start) < 16);
+            available = available.OrderBy(x=>x.Location.DistanceFrom(request.Start)).ToList();
+            available = available.GetRange(0, Math.Min(5,available.Count));
+            rideOptions = available.Select(x => new RideOption
+            { 
+                DriverName= x.Name,
+                Price= (decimal)12.00,
+                Start = request.Start,
+                Destination = request.Destination,
+                RiderName = request.RiderName
+            }).ToList();
+
             return rideOptions;
         }
 
@@ -42,36 +52,70 @@ namespace TheProject.Test.Features
 
         public Rider Find(string memberName)
         {
-            return memberList.Find(x => x.Name == memberName);
+            return riderList.Find(x => x.Name == memberName);
         }
 
-        public void AddRide(string driverName, RideModel ride)
+        public Driver GetDriver(string driverName)
         {
-            rides.Add(new Ride
+            return driverList.Find(x => x.Name.Equals(driverName));
+        }
+
+        public void RequestRide(string riderName, double latitude, double longitude)
+        {
+            var rider = Find(riderName);
+            var destination = new Location(latitude, longitude);
+            requests.Add(new RideRequest
             {
-                Distance = ride.Distance,
-                RiderName = ride.RiderName,
-                DropoffLocation = new Location(ride.Latitude, ride.Longitude),
-                DriverName = driverName,
-                Status = "Pending"
+                Destination = destination,
+                Start = rider.Location,
+                RiderName = riderName,
             });
         }
 
-        public List<Ride> GetRides(string driverName)
+        public RideRequest GetRequest(string riderName)
         {
-            return rides.Where(r => r.DriverName == driverName).ToList();
+            return requests.Find(x => x.RiderName.Equals(riderName));
+        }
+
+        public void DriverAcceptsRequest(string driverName, string riderName)
+        {
+            var request = requests.Find(r => r.RiderName == riderName);
+            request.Accept();
+        }
+
+        public IEnumerable<RideRequest> GetAvailableRequests()
+        {
+            return requests.FindAll(x=>x.Accepted == false);
+        }
+    }
+
+    public class RideRequest
+    {
+        public Location Destination { get; set; }
+        public Location Start { get; set; }
+        public string RiderName { get; set; }
+        public bool Accepted { get; private set; }
+
+        public void Accept()
+        {
+            Accepted = true;
         }
     }
 
     public class RideOption
     {
-        public Driver Driver { get; }
-        public decimal Price { get; }
+        public Driver Driver { get; set; }
+        public decimal Price { get; set; }
+        public double Distance { get; set; }
+        public string RiderName { get; set; }
+        public Location Destination { get; set; }
+        public string DriverName { get; set; }
+        public RideStatus Status { get; set; }
+        public Location Start { get; set; }
 
-        public RideOption(Driver driver, decimal price)
+        public void Accept()
         {
-            Driver = driver;
-            Price = price;
+            Status = RideStatus.Accepted;
         }
     }
 }

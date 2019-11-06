@@ -17,22 +17,20 @@ Background:
 		| Steve | 51.6782551 | -0.9330204 |
 
 Scenario: Riley sees the ride option list
-	When Riley requests a ride to 51.6782551, -1.9330204
+	When Riley requests a ride to 51.6782551,-1.9330204
 	Then Riley sees these drivers
-		| name  | price |
-		| Danny | 12.00 |
-		| Fred  | 12.00 |
-		| Frank | 12.00 |
-		| Steve | 12.00 |
+		| drivername | price |
+		| Danny      | 12.00 |
+		| Fred       | 12.00 |
+		| Frank      | 12.00 |
+		| Steve      | 12.00 |
 
 Scenario: Danny accepts a ride
-	Given these rides are on offer for Danny
-		| distance | riderName | lat | long |
-		| 10       | Riley     | 0   | 0    |
-		| 16       | Rory      | 1   | 1    |
-	When Danny accepts Riley's ride
+	When Riley requests a ride to 51.6782551,-1.9330204
+	And Rory requests a ride to 53.6782551,-1.9366421
+	And Danny accepts Riley's ride
 	Then Riley's ride is accepted
 	And Danny is busy
-	And these rides are on offer
-		| distance | riderName | lat | long |
-		| 16       | Rory      | 1   | 1    |
+	And these requests are available
+		| riderName | startLatitude | startLongitude | distance |
+		| Rory      | 1             | 1              | 5855.429 |
