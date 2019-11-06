@@ -2,12 +2,14 @@
 	As Riley I want to be able to book rides
 	So I can get from a to b quickly
 	rule: rider only sees up to the 5 closest drivers
+
+
 Background:
 	Given the following riders
 	| name  | latitude   | longitude  |
-	| Riley | 51.6731459 | -0.9283008 |
+	| Riley | 51.6731459 | -0.9283008 | 
 	| Rory  | 1          | 1          |
-	And we have these drivers
+	Given we have these drivers
 	| name  | lat        | lng |
 	| Jamie | 51.6782551 |-1.9330204 |
 	| Danny | 51.6782551 |-0.9330204 |

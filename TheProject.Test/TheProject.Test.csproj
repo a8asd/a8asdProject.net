@@ -81,6 +81,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Features\BookingRides.feature" />
+    <None Include="Features\WebStuff.feature" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
