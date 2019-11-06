@@ -8,6 +8,7 @@ namespace TheProject.Test.Features
     {
         private readonly List<Driver> driverList = new List<Driver>();
         private readonly List<Rider> memberList = new List<Rider>();
+        private List<Ride> rides = new List<Ride>();
 
         public void AddMember(string memberName, double latitude, double longitude)
         {
@@ -46,6 +47,23 @@ namespace TheProject.Test.Features
             {
                 AddMember(rider.Name, rider.Location.Latitude, rider.Location.Longitude);                
             }
+        }
+
+        public void AddRide(string driverName, RideModel ride)
+        {
+            rides.Add(new Ride
+            {
+                Distance = ride.Distance,
+                RiderName = ride.RiderName,
+                DropoffLocation = new Location(ride.Latitude, ride.Longitude),
+                DriverName = driverName,
+                Status = "Pending"
+            });
+        }
+
+        public List<Ride> GetRides(string driverName)
+        {
+            return rides.Where(r => r.DriverName == driverName).ToList();
         }
     }
 }
