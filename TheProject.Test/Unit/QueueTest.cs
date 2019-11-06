@@ -96,7 +96,7 @@ namespace TheProject.Test.Unit
 
         public bool IsEmpty()
         {
-            return Length == 0;
+            return Elements.Count == 0;
         }
 
 
@@ -104,7 +104,7 @@ namespace TheProject.Test.Unit
 
         public void Enqueue(int i)
         {
-            if(i < 0 )
+            if(i < 0  || i > 99)
                 throw new ArgumentOutOfRangeException(ArgumentOutOfRangeError);
             Elements.Add((i));
         }
