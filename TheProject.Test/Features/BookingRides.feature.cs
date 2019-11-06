@@ -31,8 +31,8 @@ namespace TheProject.Test.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookingRides", "\tAs Riley I want to be able to book rides\r\n\tSo I can get from a to b quickly\r\n\r\n\t" +
-                    "rule: rider only sees up to the 5 closest drivers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookingRides", "\tAs Riley I want to be able to book rides\r\n\tSo I can get from a to b quickly\r\n\tru" +
+                    "le: rider only sees up to the 5 closest drivers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,14 +70,9 @@ namespace TheProject.Test.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Riley sees the ride option list")]
-        public virtual void RileySeesTheRideOptionList()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Riley sees the ride option list", null, ((string[])(null)));
-#line 7
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
+#line 5
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
@@ -87,52 +82,67 @@ this.ScenarioInitialize(scenarioInfo);
                         "Riley",
                         "51.6731459",
                         "-0.9283008"});
-#line 8
- testRunner.Given("Riley is a member at 51.6731459,-0.9283008", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            table1.AddRow(new string[] {
+                        "Rory",
+                        "1",
+                        "1"});
+#line 6
+ testRunner.Given("the following riders", ((string)(null)), table1, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
                         "lat",
                         "lng"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Jamie",
                         "51.6782551",
                         "-1.9330204"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Danny",
                         "51.6782551",
                         "-0.9330204"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Fred",
                         "51.6782551",
                         "-0.9330204"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Frank",
                         "51.6782551",
                         "-0.9330204"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Steve",
                         "51.6782551",
                         "-0.9330204"});
-#line 9
- testRunner.And("we have these drivers", ((string)(null)), table1, "And ");
-#line 16
+#line 10
+ testRunner.And("we have these drivers", ((string)(null)), table2, "And ");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Riley sees the ride option list")]
+        public virtual void RileySeesTheRideOptionList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Riley sees the ride option list", null, ((string[])(null)));
+#line 19
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 5
+this.FeatureBackground();
+#line 20
  testRunner.When("Riley requests a ride", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Danny"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Fred"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Frank"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Steve"});
-            table2.AddRow(new string[] {
-                        "Jamie"});
-#line 17
- testRunner.Then("Riley sees these drivers", ((string)(null)), table2, "Then ");
+#line 21
+ testRunner.Then("Riley sees these drivers", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
