@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheProject.Interfaces;
 using TheProject.Models;
 
-namespace TheProject.Test.Features
+namespace TheProject.Contexts
 {
-    public class RequestRideContext
+    public class RequestRideContext : IRequestRideContext
     {
-        private readonly List<Driver> driverList = new List<Driver>();
-        private readonly List<Rider> riderList = new List<Rider>();
-        private List<RideOption> rides = new List<RideOption>();
-        private List<RideRequest> requests = new List<RideRequest>();
+        private readonly List<Driver> drivers = new List<Driver>();
+        private readonly List<Rider> riders = new List<Rider>();
+        private readonly List<RideRequest> requests = new List<RideRequest>();
 
         public void AddRider(string memberName, double latitude, double longitude)
         {
-            riderList.Add(new Rider
+            riders.Add(new Rider
             {
                 Name = memberName, 
                 Location = new Location(latitude, longitude)
@@ -30,7 +30,7 @@ namespace TheProject.Test.Features
                 return rideOptions;
             }
 
-            var available = driverList.FindAll(x => x.Location.DistanceFrom(request.Start) < 16);
+            var available = drivers.FindAll(x => x.Location.DistanceFrom(request.Start) < 16);
             available = available.OrderBy(x=>x.Location.DistanceFrom(request.Start)).ToList();
             available = available.GetRange(0, Math.Min(5,available.Count));
             rideOptions = available.Select(x => new RideOption
@@ -47,22 +47,22 @@ namespace TheProject.Test.Features
 
         public void AddDriver(string name, double latitude, double longitude)
         {
-            driverList.Add(new Driver { Name = name, Location = new Location(latitude, longitude) });
+            drivers.Add(new Driver { Name = name, Location = new Location(latitude, longitude) });
         }
 
-        public Rider Find(string memberName)
+        public Rider FindRider(string name)
         {
-            return riderList.Find(x => x.Name == memberName);
+            return riders.Find(x => x.Name == name);
         }
 
-        public Driver GetDriver(string driverName)
+        public Driver GetDriver(string name)
         {
-            return driverList.Find(x => x.Name.Equals(driverName));
+            return drivers.Find(x => x.Name.Equals(name));
         }
 
         public void RequestRide(string riderName, double latitude, double longitude)
         {
-            var rider = Find(riderName);
+            var rider = FindRider(riderName);
             var destination = new Location(latitude, longitude);
             requests.Add(new RideRequest
             {
@@ -86,36 +86,6 @@ namespace TheProject.Test.Features
         public IEnumerable<RideRequest> GetAvailableRequests()
         {
             return requests.FindAll(x=>x.Accepted == false);
-        }
-    }
-
-    public class RideRequest
-    {
-        public Location Destination { get; set; }
-        public Location Start { get; set; }
-        public string RiderName { get; set; }
-        public bool Accepted { get; private set; }
-
-        public void Accept()
-        {
-            Accepted = true;
-        }
-    }
-
-    public class RideOption
-    {
-        public Driver Driver { get; set; }
-        public decimal Price { get; set; }
-        public double Distance { get; set; }
-        public string RiderName { get; set; }
-        public Location Destination { get; set; }
-        public string DriverName { get; set; }
-        public RideStatus Status { get; set; }
-        public Location Start { get; set; }
-
-        public void Accept()
-        {
-            Status = RideStatus.Accepted;
         }
     }
 }

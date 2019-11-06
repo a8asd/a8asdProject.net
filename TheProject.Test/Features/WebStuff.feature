@@ -7,23 +7,32 @@ Feature: BookingRidesWeb
 
 #Background:
 #	Given the following riders
-#	| name  | latitude   | longitude  |
-#	| Riley | 51.6731459 | -0.9283008 |
-#	| Rory  | 51.5731459 | -0.8283008 |
+#		| name  | latitude   | longitude  |
+#		| Riley | 51.6731459 | -0.9283008 |
+#		| Rory  | 1          | 1          |
 #	Given we have these drivers
-#	| name  | lat        | lng |
-#	| Jamie | 51.6782551 |-1.9330204 |
-#	| Danny | 51.6782551 |-0.9330204 |
-#	| Fred	| 51.6782551 |-0.9330204 |
-#	| Frank | 51.6782551 |-0.9330204 |
-#	| Steve | 51.6782551 |-0.9330204 |
+#		| name  | lat        | lng        |
+#		| Jamie | 51.6782551 | -1.9330204 |
+#		| Danny | 51.6782551 | -0.9330204 |
+#		| Fred  | 51.6782551 | -0.9330204 |
+#		| Frank | 51.6782551 | -0.9330204 |
+#		| Steve | 51.6782551 | -0.9330204 |
 #
-#@webstuff
 #Scenario: Riley sees the ride option list
-#	When Riley requests a ride
+#	When Riley requests a ride to 51.6782551,-1.9330204
 #	Then Riley sees these drivers
-#	| name  |
-#	| Danny |
-#	| Fred  |
-#	| Frank |
-#	| Steve |
+#		| drivername | price |
+#		| Danny      | 12.00 |
+#		| Fred       | 12.00 |
+#		| Frank      | 12.00 |
+#		| Steve      | 12.00 |
+#
+#Scenario: Danny accepts a ride
+#	When Riley requests a ride to 51.6782551,-1.9330204
+#	And Rory requests a ride to 53.6782551,-1.9366421
+#	And Danny accepts Riley's ride
+#	Then Riley's ride is accepted
+#	And Danny is busy
+#	And these requests are available
+#		| riderName | startLatitude | startLongitude | distance |
+#		| Rory      | 1             | 1              | 5855.429 |

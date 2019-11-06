@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using TheProject.Interfaces;
 
 namespace TheProject.Test.Features
 {
     [Binding]
     public class BookingRidesSteps 
     {
-        private readonly RequestRideContext context;
+        private readonly IRequestRideContext context;
 
-        public BookingRidesSteps(RequestRideContext context)
+        public BookingRidesSteps(IRequestRideContext context)
         {
             this.context = context;
         }
@@ -33,12 +34,6 @@ namespace TheProject.Test.Features
             }
         }
 
-        [Given(@"(.*) is a driver at (.*),(.*)")]
-        public void GivenDannyIsADriverAt(string driverName, double latitude, double longitude)
-        {
-            context.AddDriver(driverName, latitude, longitude);
-        }
-
         [When(@"(.*) requests a ride to (.*),(.*)")]
         public void WhenRiderRequestsRideTo(string riderName, double latitude,double longitude)
         {
@@ -48,7 +43,8 @@ namespace TheProject.Test.Features
         [Then(@"(.*) sees these drivers")]
         public void ThenRiderSeesTheseDrivers(string riderName,Table table)
         {
-            table.CompareToSet(context.GetAvailableDrivers(riderName));
+            var availableDrivers = context.GetAvailableDrivers(riderName);
+            table.CompareToSet(availableDrivers);
         }
 
         [When(@"(.*) accepts (.*)'s ride")]

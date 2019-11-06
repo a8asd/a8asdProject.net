@@ -1,6 +1,7 @@
 ﻿Feature: BookingRides
 	As Riley I want to be able to book rides
 	So I can get from a to b quickly
+	
 	rule: rider only sees up to the 5 closest drivers
 
 Background:
