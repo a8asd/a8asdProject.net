@@ -22,6 +22,15 @@ namespace TheProject.Test.Features
             requestRideContext.AddRiders(riderList);
         }
 
+        [Given("we have these drivers")]
+        public void WeHaveTheseDrivers(Table table)
+        {
+            foreach (var driver in table.CreateSet<DriverRow>())
+            {
+                requestRideContext.AddDriver(driver.Name, driver.Lat, driver.Lng);
+            }
+        }
+
         [Given(@"(.*) is a driver at (.*),(.*)")]
         public void GivenDannyIsADriverAt(string driverName, double latitude, double longitude)
         {
@@ -40,6 +49,13 @@ namespace TheProject.Test.Features
         {
             table.CompareToSet(availableDrivers);
         }
+    }
+
+    public class DriverRow
+    {
+        public string Name { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
     }
 
     public class RiderModel

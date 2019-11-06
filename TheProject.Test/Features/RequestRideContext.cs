@@ -30,9 +30,9 @@ namespace TheProject.Test.Features
             return drivers;
         }
 
-        public void AddDriver(string driverName, double latitude, double longitude)
+        public void AddDriver(string name, double latitude, double longitude)
         {
-            driverList.Add(new Driver { Name = driverName, Location = new Location(latitude, longitude) });
+            driverList.Add(new Driver { Name = name, Location = new Location(latitude, longitude) });
         }
 
         public Rider Find(string memberName)
