@@ -10,12 +10,12 @@ namespace TheProject.Test.Features
     {
         private List<Driver> driverList = new List<Driver>();
         private List<Driver> availableDrivers;
-        private List<string> memberList = new List<string>();
+        private List<Member> memberList = new List<Member>();
 
         [Given(@"(.*) is a member at (.*),(.*)")]
         public void GivenRileyIsAMember(string memberName,Decimal p0, Decimal p1)
         {
-            memberList.Add(memberName);
+            memberList.Add(new Member{Name = memberName});
         } 
         
         [Given(@"(.*) is a driver at (.*),(.*)")]
@@ -27,7 +27,7 @@ namespace TheProject.Test.Features
         [When(@"(.*) requests a ride from (.*),(.*)")]
         public void WhenRileyRequestsARideFrom(string memberName,Decimal p0, Decimal p1)
         {
-            if (memberList.Contains(memberName))
+            if (memberList.Find(x=>x.Name==memberName)!=null)
             {
                 availableDrivers = driverList;
             }
@@ -38,6 +38,11 @@ namespace TheProject.Test.Features
         {
             table.CompareToSet(availableDrivers);
         }
+    }
+
+    internal class Member
+    {
+        public string Name { get; set; }
     }
 
     public class Driver
