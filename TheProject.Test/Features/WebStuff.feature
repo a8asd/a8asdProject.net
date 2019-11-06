@@ -1,10 +1,10 @@
-﻿#@webstuff
-#Feature: BookingRides
-#	As Riley I want to be able to book rides on the web
-#	So I can get from a to b quickly 
-#
-#	rule: rider only sees up to the 5 closest drivers
-#
+﻿@webstuff
+Feature: BookingRidesWeb
+	As Riley I want to be able to book rides on the web
+	So I can get from a to b quickly 
+
+	rule: rider only sees up to the 5 closest drivers
+
 #Background:
 #	Given the following riders
 #	| name  | latitude   | longitude  |
