@@ -11,7 +11,7 @@ namespace TheProject.Test.Unit
         [SetUp]
         public void SetUp()
         {
-            queue = new TddQueue();
+            //queue = new TddQueue();
         }
 
         [Test]
