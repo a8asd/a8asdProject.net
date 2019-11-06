@@ -14,12 +14,10 @@ namespace TheProject.Test.Features
         [Given(@"the following riders")]
         public void GivenTheFollowingRiders(Table table)
         {
-            List<Rider> riderList = new List<Rider>();
             foreach (var rider in table.CreateSet<RiderModel>())
             {
-                riderList.Add(new Rider() { Name = rider.Name, Location = new Location(rider.Latitude, rider.Longitude) });
+                requestRideContext.AddRider(rider.Name, rider.Latitude, rider.Longitude);
             }
-            requestRideContext.AddRiders(riderList);
         }
 
         [Given("we have these drivers")]

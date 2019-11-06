@@ -9,7 +9,7 @@ namespace TheProject.Test.Features
         private readonly List<Driver> driverList = new List<Driver>();
         private readonly List<Rider> memberList = new List<Rider>();
 
-        public void AddMember(string memberName, double latitude, double longitude)
+        public void AddRider(string memberName, double latitude, double longitude)
         {
             memberList.Add(new Rider { Name = memberName, Location = new Location(latitude, longitude) });
         }
@@ -39,13 +39,5 @@ namespace TheProject.Test.Features
         {
             return memberList.Find(x => x.Name == memberName);
         }
-
-        public void AddRiders(List<Rider> riders)
-        {
-            foreach (var rider in riders)
-            {
-                AddMember(rider.Name, rider.Location.Latitude, rider.Location.Longitude);                
-            }
-        }
-    }
+     }
 }
