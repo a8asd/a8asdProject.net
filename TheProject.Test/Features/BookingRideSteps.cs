@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
@@ -13,15 +14,15 @@ namespace TheProject.Test.Features
         private List<Member> memberList = new List<Member>();
 
         [Given(@"(.*) is a member at (.*),(.*)")]
-        public void GivenRileyIsAMember(string memberName,Decimal latitude, Decimal longitude)
+        public void GivenRileyIsAMember(string memberName,double latitude, double longitude)
         {
-            memberList.Add(new Member{Name = memberName});
+            memberList.Add(new Member{Name = memberName,Location = new Location(latitude,longitude)});
         } 
         
         [Given(@"(.*) is a driver at (.*),(.*)")]
-        public void GivenDannyIsADriverAt(string driverName,Decimal latitude, Decimal longitude)
+        public void GivenDannyIsADriverAt(string driverName,double latitude, double longitude)
         {
-            driverList.Add(new Driver {Name = driverName});
+            driverList.Add(new Driver {Name = driverName,Location = new Location(latitude,longitude)});
         }
         
         [When(@"(.*) requests a ride from (.*),(.*)")]
@@ -43,10 +44,12 @@ namespace TheProject.Test.Features
     internal class Member
     {
         public string Name { get; set; }
+        public Location Location { get; set; }
     }
 
     public class Driver
     {
         public string Name { get; set; }
+        public Location Location { get; set; }
     }
 }
