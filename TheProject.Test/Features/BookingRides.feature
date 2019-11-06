@@ -5,9 +5,9 @@
 Background:
 	Given the following riders
 	| name  | latitude   | longitude  |
-	| Riley | 51.6731459 | -0.9283008 |
+	| Riley | 51.6731459 | -0.9283008 | 
 	| Rory  | 1          | 1          |
-	And we have these drivers
+	Given we have these drivers
 	| name  | lat        | lng |
 	| Jamie | 51.6782551 |-1.9330204 |
 	| Danny | 51.6782551 |-0.9330204 |
@@ -26,7 +26,7 @@ Scenario: Riley sees the ride option list
 	| Steve |
 
 #Scenario: Danny accepts a ride
-#	And these rides are on offer
+#	Given these rides are on offer
 #	| distance | riderName | lat | long |
 #	| 10       | Riley     | 0   | 0    |
 #	| 16       | Rory      | 1   | 1    |
