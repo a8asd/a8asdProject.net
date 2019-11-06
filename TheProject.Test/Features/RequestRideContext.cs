@@ -7,21 +7,21 @@ namespace TheProject.Test.Features
     public class RequestRideContext
     {
         private readonly List<Driver> driverList = new List<Driver>();
-        private readonly List<Member> memberList = new List<Member>();
+        private readonly List<Rider> memberList = new List<Rider>();
 
         public void AddMember(string memberName, double latitude, double longitude)
         {
-            memberList.Add(new Member { Name = memberName, Location = new Location(latitude, longitude) });
+            memberList.Add(new Rider { Name = memberName, Location = new Location(latitude, longitude) });
         }
 
-        public List<Driver> GetAvailableDrivers(Member member)
+        public List<Driver> GetAvailableDrivers(Rider rider)
         {
             List<Driver> drivers = null;
-            if (member != null)
+            if (rider != null)
             {
                 var sortedDriverList = (from driver in driverList
-                                        where driver.Location.DistanceFrom(member.Location) <= 16.0
-                                        select (distance: driver.Location.DistanceFrom(member.Location), driver))
+                                        where driver.Location.DistanceFrom(rider.Location) <= 16.0
+                                        select (distance: driver.Location.DistanceFrom(rider.Location), driver))
                     .OrderBy(x => x.distance);
                 drivers = sortedDriverList.Select(x => x.driver).ToList();
                 if (drivers.Count() > 5)
@@ -35,7 +35,7 @@ namespace TheProject.Test.Features
             driverList.Add(new Driver { Name = driverName, Location = new Location(latitude, longitude) });
         }
 
-        public Member Find(string memberName)
+        public Rider Find(string memberName)
         {
             return memberList.Find(x => x.Name == memberName);
         }

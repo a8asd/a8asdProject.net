@@ -37,10 +37,4 @@ namespace TheProject.Test.Features
             table.CompareToSet(availableDrivers);
         }
     }
-
-    public class Member
-    {
-        public string Name { get; set; }
-        public Location Location { get; set; }
-    }
 }

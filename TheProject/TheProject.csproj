@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Rider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
