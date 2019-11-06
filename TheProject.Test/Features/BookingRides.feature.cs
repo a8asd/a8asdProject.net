@@ -79,7 +79,7 @@ namespace TheProject.Test.Features
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 8
- testRunner.Given("Riley is a member", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Riley is a member at 51.6737492,-0.9356341", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.And("Danny is a driver at 51.6782551,-0.9330204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10

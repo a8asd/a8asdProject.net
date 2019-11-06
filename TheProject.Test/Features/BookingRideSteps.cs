@@ -10,11 +10,13 @@ namespace TheProject.Test.Features
     {
         private List<Driver> driverList = new List<Driver>();
         private List<Driver> availableDrivers;
+        private List<string> memberList = new List<string>();
 
-        [Given(@"Riley is a member")]
-        public void GivenRileyIsAMember()
+        [Given(@"(.*) is a member at (.*),(.*)")]
+        public void GivenRileyIsAMember(string memberName,Decimal p0, Decimal p1)
         {
-        }
+            memberList.Add(memberName);
+        } 
         
         [Given(@"(.*) is a driver at (.*),(.*)")]
         public void GivenDannyIsADriverAt(string driverName,Decimal p0, Decimal p1)
@@ -22,16 +24,19 @@ namespace TheProject.Test.Features
             driverList.Add(new Driver {Name = driverName});
         }
         
-        [When(@"Riley requests a ride from (.*),(.*)")]
-        public void WhenRileyRequestsARideFrom(Decimal p0, Decimal p1)
+        [When(@"(.*) requests a ride from (.*),(.*)")]
+        public void WhenRileyRequestsARideFrom(string memberName,Decimal p0, Decimal p1)
         {
-            availableDrivers = driverList;
+            if (memberList.Contains(memberName))
+            {
+                availableDrivers = driverList;
+            }
         }
         
         [Then(@"Riley sees these drivers")]
         public void ThenRileySeesTheseDrivers(Table table)
         {
-            table.CompareToSet<Driver>(availableDrivers);
+            table.CompareToSet(availableDrivers);
         }
     }
 
