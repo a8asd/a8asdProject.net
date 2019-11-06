@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TheProject.Models;
@@ -9,39 +8,27 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookingRidesSteps
     {
-        private readonly List<Driver> driverList = new List<Driver>();
         private List<Driver> availableDrivers;
-        private readonly List<Member> memberList = new List<Member>();
+        private readonly RequestRideContext requestRideContext = new RequestRideContext();
 
         [Given(@"(.*) is a member at (.*),(.*)")]
         public void GivenRileyIsAMember(string memberName, double latitude, double longitude)
         {
-            memberList.Add(new Member { Name = memberName, Location = new Location(latitude, longitude) });
+            requestRideContext.AddMember(memberName, latitude, longitude);
         }
 
         [Given(@"(.*) is a driver at (.*),(.*)")]
         public void GivenDannyIsADriverAt(string driverName, double latitude, double longitude)
         {
-            driverList.Add(new Driver { Name = driverName, Location = new Location(latitude, longitude) });
+            requestRideContext.AddDriver(driverName, latitude, longitude);
+
         }
 
-        [When(@"(.*) requests a ride from (.*),(.*)")]
-        public void WhenRileyRequestsARideFrom(string memberName, double latitude, double longitude)
+        [When(@"(.*) requests a ride")]
+        public void WhenRileyRequestsARideFrom(string memberName)
         {
-
-            if (memberList.Find(x => x.Name == memberName) != null)
-            {
-                Location memberLocation = new Location(latitude, longitude);
-
-                //availableDrivers = driverList.FindAll(d => d.Location.DistanceFrom(memberLocation) <= 16.0);
-                var sortedDriverList = (from driver in driverList
-                                        where driver.Location.DistanceFrom(memberLocation) <= 16.0
-                                        select (distance: driver.Location.DistanceFrom(memberLocation), driver))
-                    .OrderBy(x => x.distance);
-                availableDrivers = sortedDriverList.Select(x => x.driver).ToList();
-                if (availableDrivers.Count() > 5)
-                    availableDrivers = availableDrivers.GetRange(0, 5);
-            }
+            var member = requestRideContext.Find(memberName);
+            availableDrivers = requestRideContext.GetAvailableDrivers(member);
         }
 
         [Then(@"Riley sees these drivers")]
@@ -51,7 +38,7 @@ namespace TheProject.Test.Features
         }
     }
 
-    internal class Member
+    public class Member
     {
         public string Name { get; set; }
         public Location Location { get; set; }

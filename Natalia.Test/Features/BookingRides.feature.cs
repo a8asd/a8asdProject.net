@@ -95,19 +95,52 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Danny accepts a notification")]
-        public virtual void DannyAcceptsANotification()
+        [NUnit.Framework.DescriptionAttribute("Danny accepts a ride")]
+        public virtual void DannyAcceptsARide()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Danny accepts a notification", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Danny accepts a ride", null, ((string[])(null)));
 #line 12
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 13
  testRunner.Given("Danny is a driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "distance",
+                        "riderName",
+                        "lat",
+                        "long"});
+            table2.AddRow(new string[] {
+                        "10",
+                        "Riley",
+                        "0",
+                        "0"});
+            table2.AddRow(new string[] {
+                        "16",
+                        "Rory",
+                        "1",
+                        "1"});
 #line 14
- testRunner.And("Danny receives a new notification", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
- testRunner.When("Danny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("these rides are on offer", ((string)(null)), table2, "And ");
+#line 18
+ testRunner.When("Danny accepts Riley\'s ride", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
+ testRunner.Then("Riley\'s ride is accepted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 20
+ testRunner.And("Danny is busy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "distance",
+                        "riderName",
+                        "lat",
+                        "long"});
+            table3.AddRow(new string[] {
+                        "16",
+                        "Rory",
+                        "1",
+                        "1"});
+#line 21
+ testRunner.And("these rides are on offer", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
