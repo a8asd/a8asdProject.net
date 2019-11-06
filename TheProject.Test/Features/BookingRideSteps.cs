@@ -9,7 +9,7 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookingRidesSteps
     {
-        private List<Driver> _availableDrivers;
+        private List<RideOption> _rideOptions;
         private readonly RequestRideContext _requestRideContext = new RequestRideContext();
 
         [Given(@"the following riders")]
@@ -38,17 +38,17 @@ namespace TheProject.Test.Features
             _requestRideContext.AddDriver(driverName, latitude, longitude);
         }
 
-        [When(@"(.*) requests a ride")]
-        public void WhenRileyRequestsARideFrom(string memberName)
+        [When(@"(.*) requests a ride to (.*), (.*)")]
+        public void WhenRileyRequestsARideFrom(string memberName, double lat, double lng)
         {
             var member = _requestRideContext.Find(memberName);
-            _availableDrivers = _requestRideContext.GetAvailableDrivers(member);
+            _rideOptions = _requestRideContext.GetAvailableDrivers(member);
         }
 
         [Then(@"Riley sees these drivers")]
         public void ThenRileySeesTheseDrivers(Table table)
         {
-            table.CompareToSet(_availableDrivers);
+            table.CompareToSet(_rideOptions.Select(o => new { name = o.Driver.Name, price = o.Price }));
         }
 
         [Given(@"these rides are on offer for (.*)")]

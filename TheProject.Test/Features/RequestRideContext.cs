@@ -15,20 +15,20 @@ namespace TheProject.Test.Features
             memberList.Add(new Rider { Name = memberName, Location = new Location(latitude, longitude) });
         }
 
-        public List<Driver> GetAvailableDrivers(Rider rider)
+        public List<RideOption> GetAvailableDrivers(Rider rider)
         {
-            List<Driver> drivers = null;
+            List<RideOption> rideOptions = null;
             if (rider != null)
             {
                 var sortedDriverList = (from driver in driverList
                                         where driver.Location.DistanceFrom(rider.Location) <= 16.0
                                         select (distance: driver.Location.DistanceFrom(rider.Location), driver))
                     .OrderBy(x => x.distance);
-                drivers = sortedDriverList.Select(x => x.driver).ToList();
-                if (drivers.Count() > 5)
-                    drivers = drivers.GetRange(0, 5);
+                rideOptions = sortedDriverList.Select(x => new RideOption(x.driver, (decimal)12.00)).ToList();
+                if (rideOptions.Count() > 5)
+                    rideOptions = rideOptions.GetRange(0, 5);
             }
-            return drivers;
+            return rideOptions;
         }
 
         public void AddDriver(string name, double latitude, double longitude)
@@ -64,6 +64,18 @@ namespace TheProject.Test.Features
         public List<Ride> GetRides(string driverName)
         {
             return rides.Where(r => r.DriverName == driverName).ToList();
+        }
+    }
+
+    public class RideOption
+    {
+        public Driver Driver { get; }
+        public decimal Price { get; }
+
+        public RideOption(Driver driver, decimal price)
+        {
+            Driver = driver;
+            Price = price;
         }
     }
 }
