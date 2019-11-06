@@ -43,10 +43,4 @@ namespace TheProject.Test.Features
         public string Name { get; set; }
         public Location Location { get; set; }
     }
-
-    public class Driver
-    {
-        public string Name { get; set; }
-        public Location Location { get; set; }
-    }
 }
