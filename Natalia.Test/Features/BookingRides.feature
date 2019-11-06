@@ -8,3 +8,16 @@ Scenario: Riley sees a list of available drivers
 	Then Riley sees this list of drivers
 	| name  |
 	| Danny |
+
+Scenario: Danny accepts a ride
+	Given Danny is a driver
+	And these rides are on offer
+	| distance | riderName | lat | long |
+	| 10       | Riley     | 0   | 0    |
+	| 16       | Rory      | 1   | 1    |
+	When Danny accepts Riley's ride
+	Then Riley's ride is accepted
+	And Danny is busy
+	And these rides are on offer
+	| distance | riderName | lat | long |
+	| 16       | Rory      | 1   | 1    |
