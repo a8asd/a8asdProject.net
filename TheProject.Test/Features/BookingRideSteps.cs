@@ -10,17 +10,20 @@ namespace TheProject.Test.Features
     public class BookingRidesSteps
     {
         private List<Driver> _availableDrivers;
-        private readonly RequestRideContext _requestRideContext = new RequestRideContext();
+        private readonly RequestRideContext _requestRideContext;
+
+        public BookingRidesSteps(RequestRideContext requestRideContext)
+        {
+            _requestRideContext = requestRideContext;
+        }
 
         [Given(@"the following riders")]
         public void GivenTheFollowingRiders(Table table)
         {
-            List<Rider> riderList = new List<Rider>();
             foreach (var rider in table.CreateSet<RiderModel>())
             {
-                riderList.Add(new Rider() { Name = rider.Name, Location = new Location(rider.Latitude, rider.Longitude) });
+                _requestRideContext.AddRider(rider.Name, rider.Latitude, rider.Longitude);
             }
-            _requestRideContext.AddRiders(riderList);
         }
 
         [Given("we have these drivers")]
