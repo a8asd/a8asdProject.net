@@ -69,18 +69,7 @@ namespace TheProject.Test.Features
         [Then(@"these requests are available")]
         public void ThenTheseRidesAreOnOffer(Table table)
         {
-            List<RequestModel> requests = new List<RequestModel>();
-            foreach (var request in context.GetAvailableRequests())
-            {
-                requests.Add(new RequestModel
-                {
-                    RiderName = request.RiderName,
-                    StartLatitude = request.Start.Latitude,
-                    StartLongitude = request.Start.Latitude,
-                    Distance = request.Destination.DistanceFrom(request.Start)
-                });
-            }
-            table.CompareToSet(requests);
+            table.CompareToSet(context.GetAvailableRequests().Select(RequestModel.From));
         }
 
         [When(@"(.*) selects (.*)")]
