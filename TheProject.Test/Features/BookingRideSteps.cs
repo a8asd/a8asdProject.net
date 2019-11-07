@@ -4,11 +4,12 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TheProject.Interfaces;
+using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
     [Binding]
-    public class BookingRidesSteps
+    public class BookingRidesSteps 
     {
         private readonly IRequestRideContext context;
 
@@ -36,13 +37,13 @@ namespace TheProject.Test.Features
         }
 
         [When(@"(.*) requests a ride to (.*),(.*)")]
-        public void WhenRiderRequestsRideTo(string riderName, double latitude, double longitude)
+        public void WhenRiderRequestsRideTo(string riderName, double latitude,double longitude)
         {
-            context.RequestRide(riderName, latitude, longitude);
+            context.RequestRide(riderName,latitude,longitude);
         }
 
         [Then(@"(.*) sees these drivers")]
-        public void ThenRiderSeesTheseDrivers(string riderName, Table table)
+        public void ThenRiderSeesTheseDrivers(string riderName,Table table)
         {
             table.CompareToSet(context.GetAvailableDrivers(riderName));
         }
@@ -68,7 +69,7 @@ namespace TheProject.Test.Features
         [Then(@"these requests are available")]
         public void ThenTheseRidesAreOnOffer(Table table)
         {
-            var requests = new List<RequestModel>();
+            List<RequestModel> requests = new List<RequestModel>();
             foreach (var request in context.GetAvailableRequests())
             {
                 requests.Add(new RequestModel
@@ -88,19 +89,19 @@ namespace TheProject.Test.Features
             context.SelectRideRequest(riderName, driverName);
         }
 
-        [Then(@"Danny sees these notifications")]
-        public void ThenDannySeesTheseNotifications(Table table)
+        [Then(@"(.*) sees these notifications")]
+        public void ThenDannySeesTheseNotifications(string driverName, Table table)
         {
-            table.CompareToSet(context.GetAvailableRequestsFor("Danny").Select(r =>
+            table.CompareToSet<RequestModel>(context.GetAvailableRequestsFor(driverName).Select(r =>
                 new RequestModel()
                 {
-                    RiderName = r.RiderName,
+                    RiderName =  r.RiderName,
                     StartLatitude = r.Start.Latitude,
                     StartLongitude = r.Start.Longitude,
                     DestinationLatitude = r.Destination.Latitude,
                     DestinationLongitude = r.Destination.Longitude
                 }
-            ));
+                ));
         }
     }
 
