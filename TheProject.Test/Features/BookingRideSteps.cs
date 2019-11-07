@@ -4,11 +4,12 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TheProject.Interfaces;
+using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
     [Binding]
-    public class BookingRidesSteps 
+    public class BookingRidesSteps
     {
         private readonly IRequestRideContext context;
 
@@ -36,13 +37,13 @@ namespace TheProject.Test.Features
         }
 
         [When(@"(.*) requests a ride to (.*),(.*)")]
-        public void WhenRiderRequestsRideTo(string riderName, double latitude,double longitude)
+        public void WhenRiderRequestsRideTo(string riderName, double latitude, double longitude)
         {
-            context.RequestRide(riderName,latitude,longitude);
+            context.RequestRide(riderName, latitude, longitude);
         }
 
         [Then(@"(.*) sees these drivers")]
-        public void ThenRiderSeesTheseDrivers(string riderName,Table table)
+        public void ThenRiderSeesTheseDrivers(string riderName, Table table)
         {
             table.CompareToSet(context.GetAvailableDrivers(riderName));
         }
@@ -91,16 +92,7 @@ namespace TheProject.Test.Features
         [Then(@"(.*) sees these notifications")]
         public void ThenDannySeesTheseNotifications(string driverName, Table table)
         {
-            table.CompareToSet(context.GetAvailableRequestsFor(driverName).Select(r =>
-                new RequestModel()
-                {
-                    RiderName =  r.RiderName,
-                    StartLatitude = r.Start.Latitude,
-                    StartLongitude = r.Start.Longitude,
-                    DestinationLatitude = r.Destination.Latitude,
-                    DestinationLongitude = r.Destination.Longitude
-                }
-                ));
+            table.CompareToSet(context.GetAvailableRequestsFor(driverName).Select(RequestModel.From));
         }
     }
 
@@ -112,6 +104,19 @@ namespace TheProject.Test.Features
         public double Distance { get; set; }
         public double DestinationLatitude { get; set; }
         public double DestinationLongitude { get; set; }
+
+        public static RequestModel From(RideRequest rideRequest)
+        {
+            return new RequestModel
+            {
+                RiderName = rideRequest.RiderName,
+                StartLongitude = rideRequest.Start.Longitude,
+                StartLatitude = rideRequest.Start.Latitude,
+                DestinationLatitude = rideRequest.Destination.Latitude,
+                DestinationLongitude = rideRequest.Destination.Longitude,
+                Distance = rideRequest.Destination.DistanceFrom(rideRequest.Start),
+            };
+        }
     }
 
 
