@@ -1,7 +1,11 @@
-﻿using BoDi;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using BoDi;
 using TechTalk.SpecFlow;
 using TheProject.Contexts;
 using TheProject.Interfaces;
+using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
@@ -20,6 +24,10 @@ namespace TheProject.Test.Features
         public void BeforeScenario()
         {
             context = new RequestRideContext();
+            foreach (var valueTuple in GetSeedRiders())
+            {
+                context.AddRider(valueTuple.Item1, valueTuple.Item2, valueTuple.Item3);
+            }
             objectContainer.RegisterInstanceAs(context);
         }
 
@@ -28,6 +36,16 @@ namespace TheProject.Test.Features
         {
             context = new RequestRideWebContext();
             objectContainer.RegisterInstanceAs(context);
+        }
+
+        private IEnumerable<(string, double, double)> GetSeedRiders()
+        {
+            (string, double, double)[] riders =
+            {
+                ("Riley", 51.6731459, -0.9283008),
+                ("Rory", 1, 1)
+            };
+            return riders;
         }
     }
 }
