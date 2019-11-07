@@ -6,6 +6,7 @@
         public Location Start { get; set; }
         public string RiderName { get; set; }
         public bool Accepted { get; private set; }
+        public string DriverName { get; set; }
 
         public void Accept()
         {

@@ -14,6 +14,7 @@ namespace TheProject.Interfaces
         RideRequest GetRequest(string riderName);
         void DriverAcceptsRequest(string driverName, string riderName);
         IEnumerable<RideRequest> GetAvailableRequests();
-        void SelectRideRequest();
+        void SelectRideRequest(string riderName, string driverName);
+        List<RideRequest> GetAvailableRequestsFor(string driverName);
     }
 }
