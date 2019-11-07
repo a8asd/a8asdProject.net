@@ -85,7 +85,7 @@ namespace TheProject.Contexts
         {
             var request = requests.Find(r => r.RiderName == riderName);
             request.Accept();
-            CreateNewRide(riderName, driverName);
+            CreateNewRide(riderName, driverName, request.Destination);
         }
 
         public IEnumerable<RideRequest> GetAvailableRequests()
@@ -111,11 +111,11 @@ namespace TheProject.Contexts
                                              r.Status == RideStatus.Accepted);
         }
 
-        private void CreateNewRide(string riderName, string driverName)
+        private void CreateNewRide(string riderName, string driverName, Location destination)
         {
             rides.Add(new Ride()
             {
-                Destination = new Location(AnyLatitude, AnyLongitude),
+                Destination = destination,
                 RiderName = riderName,
                 DriverName = driverName,
                 Status = RideStatus.Accepted

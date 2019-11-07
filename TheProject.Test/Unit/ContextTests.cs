@@ -16,7 +16,7 @@ namespace TheProject.Test.Unit
         private IRequestRideContext context;
         private const string DriverName = "Danny";
         private const string RiderName = "Riley";
-        private double DriverLongitude;
+        private const double DriverLongitude = 1.0;
         private const double DriverLatitude = 1.0;
         private const double RiderLatitude = 2.0;
         private const double RiderLongitude = 2.0;
@@ -42,6 +42,16 @@ namespace TheProject.Test.Unit
         {
             DriverAcceptsRequest();
             Assert.IsTrue(context.GetRequest(RiderName).Accepted);
+        }
+
+
+        [Test]
+        public void OnDriverAcceptsRequestNewRidePopulatedWithCorrectDestination()
+        {
+            DriverAcceptsRequest();
+            var rideDestination = context.GetCurrentRide(RiderName, DriverName).Destination;
+            Assert.AreEqual(DestinationLatitude, rideDestination.Latitude);
+            Assert.AreEqual(DestinationLongitude, rideDestination.Longitude);
         }
 
         [Test]
