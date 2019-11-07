@@ -89,10 +89,10 @@ namespace TheProject.Test.Features
             context.SelectRideRequest(riderName,driverName);
         }
 
-        [Then(@"Danny sees these notifications")]
-        public void ThenDannySeesTheseNotifications(Table table)
+        [Then(@"(.*) sees these notifications")]
+        public void ThenDannySeesTheseNotifications(string driverName, Table table)
         {
-            table.CompareToSet<RequestModel>(context.GetAvailableRequestsFor("Danny").Select(r =>
+            table.CompareToSet<RequestModel>(context.GetAvailableRequestsFor(driverName).Select(r =>
                 new RequestModel()
                 {
                     RiderName =  r.RiderName,
