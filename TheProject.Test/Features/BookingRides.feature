@@ -1,7 +1,6 @@
 ﻿Feature: BookingRides
 	As Riley I want to be able to book rides
 	So I can get from a to b quickly
-	
 	rule: rider only sees up to the 5 closest drivers
 
 Background:
@@ -26,12 +25,18 @@ Scenario: Riley sees the ride option list
 		| Frank      | 12.00 |
 		| Steve      | 12.00 |
 
+Scenario: Riley selects a driver
+	When Riley requests a ride to 51.6782551,-1.9330204
+	And Riley selects Danny
+	Then Danny sees these notifications
+		| rider name | start latitude | start longitude | destination latitude | destination longitude |
+		| Riley      | 51.6731459     | -0.9283008      | 51.6782551           | -1.9330204            |
+
 Scenario: Danny accepts a ride
 	When Riley requests a ride to 51.6782551,-1.9330204
 	And Rory requests a ride to 53.6782551,-1.9366421
+	And Riley selects Danny
 	And Danny accepts Riley's ride
-	Then Riley's ride is accepted
-	And Danny is busy
-	And these requests are available
+	Then these requests are available
 		| riderName | startLatitude | startLongitude | distance |
 		| Rory      | 1             | 1              | 5855.429 |
