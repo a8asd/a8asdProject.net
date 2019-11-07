@@ -50,5 +50,10 @@ namespace TheProject.Test.Features
         {
             return null;
         }
+
+        public void SelectRideRequest()
+        {
+            
+        }
     }
 }

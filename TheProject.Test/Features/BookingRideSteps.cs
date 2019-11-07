@@ -81,6 +81,12 @@ namespace TheProject.Test.Features
             table.CompareToSet(requests);
         }
 
+        [When(@"Riley selects Danny")]
+        public void WhenRileySelectsDanny()
+        {
+            context.SelectRideRequest();
+        }
+
     }
 
     public class RequestModel

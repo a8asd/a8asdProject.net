@@ -87,5 +87,10 @@ namespace TheProject.Contexts
         {
             return requests.FindAll(x=>x.Accepted == false);
         }
+
+        public void SelectRideRequest()
+        {
+            
+        }
     }
 }
