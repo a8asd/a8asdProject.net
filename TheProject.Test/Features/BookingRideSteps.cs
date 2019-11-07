@@ -43,8 +43,7 @@ namespace TheProject.Test.Features
         [Then(@"(.*) sees these drivers")]
         public void ThenRiderSeesTheseDrivers(string riderName,Table table)
         {
-            var availableDrivers = context.GetAvailableDrivers(riderName);
-            table.CompareToSet(availableDrivers);
+            table.CompareToSet(context.GetAvailableDrivers(riderName));
         }
 
         [When(@"(.*) accepts (.*)'s ride")]
