@@ -86,7 +86,7 @@ namespace TheProject.Test.Features
         [When(@"(.*) selects (.*)")]
         public void WhenRileySelectsDanny(string riderName, string driverName)
         {
-            context.SelectRideRequest(riderName,driverName);
+            context.SelectRideRequest(riderName, driverName);
         }
 
         [Then(@"(.*) sees these notifications")]

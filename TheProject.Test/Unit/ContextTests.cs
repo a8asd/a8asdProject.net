@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using TheProject.Contexts;
 using TheProject.Interfaces;
+using TheProject.Models;
 
 namespace TheProject.Test.Unit
 {
@@ -35,6 +36,26 @@ namespace TheProject.Test.Unit
             context.RequestRide(RiderName, DestinationLatitude, DestinationLongitude);
             context.DriverAcceptsRequest(DriverName, RiderName);
             Assert.IsTrue(context.GetRequest(RiderName).Accepted);
+        }
+
+        [Test]
+        public void OnRiderSelectingDriverRequestUpdatedWithDriverName()
+        {
+            SeedRider();
+            SeedRequest();
+            context.SelectRideRequest(RiderName, DriverName);
+            var request = context.GetAvailableRequests().FirstOrDefault(r => r.RiderName == RiderName);
+            Assert.AreEqual(request.DriverName, DriverName);
+        }
+
+        private void SeedRider()
+        {
+            context.AddRider(RiderName, RiderLatitude, RiderLongitude);
+        }
+
+        private void SeedRequest()
+        {
+            context.RequestRide(RiderName, RiderLatitude, RiderLongitude);
         }
     }
 }

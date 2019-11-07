@@ -16,7 +16,7 @@ namespace TheProject.Contexts
         {
             riders.Add(new Rider
             {
-                Name = memberName, 
+                Name = memberName,
                 Location = new Location(latitude, longitude)
             });
         }
@@ -31,12 +31,12 @@ namespace TheProject.Contexts
             }
 
             var available = drivers.FindAll(x => x.Location.DistanceFrom(request.Start) < 16);
-            available = available.OrderBy(x=>x.Location.DistanceFrom(request.Start)).ToList();
-            available = available.GetRange(0, Math.Min(5,available.Count));
+            available = available.OrderBy(x => x.Location.DistanceFrom(request.Start)).ToList();
+            available = available.GetRange(0, Math.Min(5, available.Count));
             rideOptions = available.Select(x => new RideOption
-            { 
-                DriverName= x.Name,
-                Price= (decimal)12.00,
+            {
+                DriverName = x.Name,
+                Price = (decimal)12.00,
                 Start = request.Start,
                 Destination = request.Destination,
                 RiderName = request.RiderName
@@ -85,7 +85,7 @@ namespace TheProject.Contexts
 
         public IEnumerable<RideRequest> GetAvailableRequests()
         {
-            return requests.FindAll(x=>x.Accepted == false);
+            return requests.FindAll(x => x.Accepted == false);
         }
 
         public void SelectRideRequest(string riderName, string driverName)
