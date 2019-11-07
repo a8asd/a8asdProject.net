@@ -51,9 +51,14 @@ namespace TheProject.Test.Features
             return null;
         }
 
-        public void SelectRideRequest()
+        public void SelectRideRequest(string riderName, string driverName)
         {
             
+        }
+
+        public List<RideRequest> GetAvailableRequestsFor(string driverName)
+        {
+            return null;
         }
     }
 }

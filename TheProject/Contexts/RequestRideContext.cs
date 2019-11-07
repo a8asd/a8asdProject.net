@@ -88,9 +88,15 @@ namespace TheProject.Contexts
             return requests.FindAll(x=>x.Accepted == false);
         }
 
-        public void SelectRideRequest()
+        public void SelectRideRequest(string riderName, string driverName)
         {
-            
+            var request = requests.Find(r => r.RiderName == riderName);
+            request.DriverName = driverName;
+        }
+
+        public List<RideRequest> GetAvailableRequestsFor(string driverName)
+        {
+            return requests.FindAll(r => !r.Accepted && r.DriverName == driverName);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TheProject.Interfaces;
+using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
@@ -81,12 +83,26 @@ namespace TheProject.Test.Features
             table.CompareToSet(requests);
         }
 
-        [When(@"Riley selects Danny")]
-        public void WhenRileySelectsDanny()
+        [When(@"(.*) selects (.*)")]
+        public void WhenRileySelectsDanny(string riderName, string driverName)
         {
-            context.SelectRideRequest();
+            context.SelectRideRequest(riderName,driverName);
         }
 
+        [Then(@"Danny sees these notifications")]
+        public void ThenDannySeesTheseNotifications(Table table)
+        {
+            table.CompareToSet<RequestModel>(context.GetAvailableRequestsFor("Danny").Select(r =>
+                new RequestModel()
+                {
+                    RiderName =  r.RiderName,
+                    StartLatitude = r.Start.Latitude,
+                    StartLongitude = r.Start.Longitude,
+                    DestinationLatitude = r.Destination.Latitude,
+                    DestinationLongitude = r.Destination.Longitude
+                }
+                ));
+        }
     }
 
     public class RequestModel
@@ -95,6 +111,8 @@ namespace TheProject.Test.Features
         public double StartLatitude { get; set; }
         public double StartLongitude { get; set; }
         public double Distance { get; set; }
+        public double DestinationLatitude { get; set; }
+        public double DestinationLongitude { get; set; }
     }
 
 
