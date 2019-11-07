@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Bson;
 using NUnit.Framework;
 using TheProject.Contexts;
 using TheProject.Interfaces;
+using TheProject.Models;
 
 namespace TheProject.Test.Unit
 {
@@ -27,14 +29,37 @@ namespace TheProject.Test.Unit
              context = new RequestRideContext();
         }
 
-        [Test]
-        public void OnDriverAcceptsRequestStatusChangesToAccepted()
+        private void DriverAcceptsRequest()
         {
             context.AddDriver(DriverName, DriverLatitude, DriverLongitude);
             context.AddRider(RiderName, RiderLatitude, RiderLongitude);
             context.RequestRide(RiderName, DestinationLatitude, DestinationLongitude);
             context.DriverAcceptsRequest(DriverName, RiderName);
+        }
+
+        [Test]
+        public void OnDriverAcceptsRequestStatusChangesToAccepted()
+        {
+            DriverAcceptsRequest();
             Assert.IsTrue(context.GetRequest(RiderName).Accepted);
         }
+
+        [Test]
+        public void OnDriverAcceptRequestANewRideIsCreated()
+        {
+            DriverAcceptsRequest();
+            Ride rileysRide = context.GetCurrentRide(RiderName, DriverName);
+            Assert.IsNotNull(rileysRide);
+        }
+
+        [Test]
+        public void OnDriverAcceptRequestRidesCountIncreases()
+        {
+            var rideCountBefore = context.GetRides().Count;
+            DriverAcceptsRequest();
+            Assert.AreEqual(rideCountBefore+1, context.GetRides().Count);
+        }
+
+
     }
 }

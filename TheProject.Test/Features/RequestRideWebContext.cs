@@ -60,5 +60,15 @@ namespace TheProject.Test.Features
         {
             return null;
         }
+
+        public Ride GetCurrentRide(string riderName, string driverName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IList<Ride> GetRides()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
