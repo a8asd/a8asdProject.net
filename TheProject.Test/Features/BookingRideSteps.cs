@@ -4,7 +4,6 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TheProject.Interfaces;
-using TheProject.Models;
 
 namespace TheProject.Test.Features
 {
@@ -86,13 +85,13 @@ namespace TheProject.Test.Features
         [When(@"(.*) selects (.*)")]
         public void WhenRileySelectsDanny(string riderName, string driverName)
         {
-            context.SelectRideRequest(riderName,driverName);
+            context.SelectRideRequest(riderName, driverName);
         }
 
         [Then(@"(.*) sees these notifications")]
         public void ThenDannySeesTheseNotifications(string driverName, Table table)
         {
-            table.CompareToSet<RequestModel>(context.GetAvailableRequestsFor(driverName).Select(r =>
+            table.CompareToSet(context.GetAvailableRequestsFor(driverName).Select(r =>
                 new RequestModel()
                 {
                     RiderName =  r.RiderName,

@@ -38,5 +38,5 @@ Scenario: Danny accepts a ride
 	And Riley selects Danny
 	And Danny accepts Riley's ride
 	Then these requests are available
-		| riderName | startLatitude | startLongitude | distance |
-		| Rory      | 1             | 1              | 5855.429 |
+		| rider name | start latitude | start longitude | distance |
+		| Rory       | 1              | 1               | 5855.429 |

@@ -26,7 +26,7 @@ namespace TheProject.Test.Unit
         [SetUp]
         public void Setup()
         {
-             context = new RequestRideContext();
+            context = new RequestRideContext();
         }
 
         private void DriverAcceptsRequest()
@@ -42,6 +42,39 @@ namespace TheProject.Test.Unit
         {
             DriverAcceptsRequest();
             Assert.IsTrue(context.GetRequest(RiderName).Accepted);
+        }
+
+        [Test]
+        public void OnRiderSelectingDriverRequestUpdatedWithDriverName()
+        {
+            SeedRider();
+            SeedRequest();
+            context.SelectRideRequest(RiderName, DriverName);
+            var request = context.GetAvailableRequests().FirstOrDefault(r => r.RiderName == RiderName);
+            Assert.AreEqual(request.DriverName, DriverName);
+        }
+
+        [Test]
+        public void GetAvailableRequestsForDriverOnlyReturnRequestsForThatDriver()
+        {
+            SeedRider();
+            SeedRequest();
+            SeedRequest();
+            SeedRequest();
+            context.SelectRideRequest(RiderName, DriverName);
+            var requests = context.GetAvailableRequestsFor(DriverName);
+
+            Assert.IsTrue(requests.All(r => r.DriverName == DriverName));
+        }
+
+        private void SeedRider()
+        {
+            context.AddRider(RiderName, RiderLatitude, RiderLongitude);
+        }
+
+        private void SeedRequest()
+        {
+            context.RequestRide(RiderName, RiderLatitude, RiderLongitude);
         }
 
         [Test]
