@@ -49,15 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\RequestRideContext.cs" />
-    <Compile Include="Interfaces\IRequestRideContext.cs" />
-    <Compile Include="Models\Driver.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Ride.cs" />
-    <Compile Include="Models\RideOption.cs" />
-    <Compile Include="Models\Rider.cs" />
-    <Compile Include="Models\RideRequest.cs" />
-    <Compile Include="Models\RideStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
