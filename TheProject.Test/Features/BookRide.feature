@@ -1,4 +1,4 @@
-﻿@web
+﻿
 Feature: BookRide
 
 Scenario: Fred sends a request to MyTaxi
