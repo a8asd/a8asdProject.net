@@ -49,6 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\MissingClientException.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\Operator.cs" />
+    <Compile Include="Models\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
