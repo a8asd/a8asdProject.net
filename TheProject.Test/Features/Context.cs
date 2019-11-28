@@ -23,5 +23,9 @@ namespace TheProject.Test.Features
         {
             Manager.AddOperator(op);
         }
+
+        public void Quit()
+        {
+        }
     }
 }

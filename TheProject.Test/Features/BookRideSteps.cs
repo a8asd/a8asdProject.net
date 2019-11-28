@@ -8,7 +8,12 @@ namespace TheProject.Test.Features
     [Binding]
     public class BookRideSteps
     {
-        private readonly IContext context = new Context();
+        private readonly IContext context;
+
+        public BookRideSteps(IContext context)
+        {
+            this.context = context;
+        }
 
         [Given(@"these operators")]
         public void GivenTheseOperators(Table table)

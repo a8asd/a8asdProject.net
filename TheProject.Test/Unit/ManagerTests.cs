@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using TheProject.Exceptions;
 using TheProject.Models;
 
 namespace TheProject.Test.Unit
@@ -18,6 +19,17 @@ namespace TheProject.Test.Unit
             string oper = "mytaxi";
             //manager.AddClient(new Client{Name = client});
             Assert.Throws<MissingClientException>(() => manager.AddRequest(client, oper));
+        }
+
+        [Test]
+        public void AddRequestThrowsExceptionOnMissingOperator()
+        {
+            Operator oper = new Operator();
+            oper.Name = "paul";
+            Manager manager = new Manager();
+            string client = "fred";
+            manager.AddClient(new Client{Name = client});
+            Assert.Throws<MissingOperatorException>( () =>  manager.AddRequest(client, oper.Name) );
         }
     }
 }

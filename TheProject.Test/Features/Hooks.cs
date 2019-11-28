@@ -7,13 +7,19 @@ namespace TheProject.Test.Features
     [Binding]
     internal class Hooks
     {
-        private static WebContext context;
+        private static IContext context;
 
         private readonly IObjectContainer objectContainer;
 
         public Hooks(IObjectContainer objectContainer)
         {
             this.objectContainer = objectContainer;
+        }
+
+        [BeforeFeature]
+        public static void BeforeNormalFeature()
+        {
+            context = new Context();
         }
 
         [BeforeFeature("web")]
@@ -28,7 +34,7 @@ namespace TheProject.Test.Features
             context.Quit();
         }
 
-        [BeforeScenario("web")]
+        [BeforeScenario]
         public void AssignWebDriver()
         {
             objectContainer.RegisterInstanceAs<IContext>(context);

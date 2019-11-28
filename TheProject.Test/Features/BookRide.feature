@@ -1,4 +1,5 @@
-﻿Feature: BookRide
+﻿@web
+Feature: BookRide
 
 Scenario: Fred sends a request to MyTaxi
 	Given these operators

@@ -11,5 +11,6 @@ namespace TheProject.Test.Features
         void AddRequest(string clientName, string operatorName);
         void AddClient(Client client);
         void AddOperator(Operator op);
+        void Quit();
     }
 }

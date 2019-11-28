@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheProject.Exceptions;
 using TheProject.Test.Unit;
 
 namespace TheProject.Models
@@ -24,7 +25,12 @@ namespace TheProject.Models
 
         private Operator GetOperator(string operatorName)
         {
-            return operators.First(x=> x.Name.Equals(operatorName));
+            var @operator = operators.FirstOrDefault(x=> x.Name.Equals(operatorName));
+            if (@operator == null)
+            {
+                throw new MissingOperatorException();
+            }
+            return @operator;
         }
 
         private Client GetClient(string clientName)
